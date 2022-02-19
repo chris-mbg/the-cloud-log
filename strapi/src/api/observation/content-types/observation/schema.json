@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "observations",
+  "info": {
+    "singularName": "observation",
+    "pluralName": "observations",
+    "displayName": "Observation"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "observation_time": {
+      "type": "datetime",
+      "required": true
+    },
+    "temperature": {
+      "type": "decimal"
+    },
+    "weather": {
+      "type": "string"
+    },
+    "wind_direction": {
+      "type": "enumeration",
+      "enum": [
+        "n",
+        "nne",
+        "ne",
+        "ene",
+        "e",
+        "ese",
+        "se",
+        "sse",
+        "s",
+        "ssw",
+        "sw",
+        "wsw",
+        "w",
+        "wnw",
+        "nw",
+        "nnw"
+      ]
+    },
+    "wind_speed": {
+      "type": "integer"
+    },
+    "cloud_cover": {
+      "type": "enumeration",
+      "enum": [
+        "few",
+        "sct",
+        "bkn",
+        "ovc"
+      ]
+    },
+    "cloud_types": {
+      "type": "string"
+    },
+    "personal": {
+      "type": "text"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "observations"
+    },
+    "location": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::location.location",
+      "inversedBy": "observations"
+    }
+  }
+}
