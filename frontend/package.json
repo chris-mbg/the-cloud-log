@@ -3,19 +3,21 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 4000",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
-    "@tailwindcss/forms": "^0.4.0",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
     "graphql": "^16.3.0",
+    "react": "^17.0.2",
     "vue": "^3.2.25",
-    "vue-apollo": "^3.1.0"
+    "vue-apollo": "^3.1.0",
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.0",
     "@vitejs/plugin-vue": "^2.2.0",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.6",

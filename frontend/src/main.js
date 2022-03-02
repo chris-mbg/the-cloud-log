@@ -1,4 +1,5 @@
 import { createApp, provide, h } from "vue"
+import router from "./router"
 import App from "./App.vue"
 import "./index.css"
 
@@ -17,4 +18,6 @@ createApp({
   render() {
     return h(App)
   }
-}).mount("#app")
+})
+  .use(router)
+  .mount("#app")
