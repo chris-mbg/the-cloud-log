@@ -1,4 +1,4 @@
-query locationsByCounty($county: String) {
+query locationsByCounty($county: String!) {
   locations(filters: { county: { eq: $county } }) {
     data {
       id

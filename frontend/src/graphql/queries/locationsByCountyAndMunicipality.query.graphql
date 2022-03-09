@@ -1,0 +1,15 @@
+query locationsByCountyAndMunicipality(
+  $county: String!
+  $municipality: String!
+) {
+  locations(
+    filters: { county: { eq: $county }, municipality: { eq: $municipality } }
+  ) {
+    data {
+      id
+      attributes {
+        locality
+      }
+    }
+  }
+}

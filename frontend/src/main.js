@@ -2,18 +2,16 @@ import { createApp, provide, h } from "vue"
 import router from "./router"
 import App from "./App.vue"
 import "./index.css"
-
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client"
-import { DefaultApolloClient } from "@vue/apollo-composable"
-
-const defaultClient = new ApolloClient({
-  uri: "http://localhost:1337/graphql",
-  cache: new InMemoryCache()
-})
+import {
+  DefaultApolloClient,
+  provideApolloClient
+} from "@vue/apollo-composable"
+import defaultClient from "./graphql/client"
 
 createApp({
   setup() {
-    provide(DefaultApolloClient, defaultClient)
+    // provide(DefaultApolloClient, defaultClient)
+    provideApolloClient(defaultClient)
   },
   render() {
     return h(App)

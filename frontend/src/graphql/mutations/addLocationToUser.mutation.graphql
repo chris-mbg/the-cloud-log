@@ -1,0 +1,18 @@
+mutation addLocationToUser($userId: ID!, $locationId: ID!) {
+  updateUsersPermissionsUser(id: $userId, data: { location: $locationId }) {
+    data {
+      id
+      attributes {
+        email
+        location {
+          data {
+            id
+            attributes {
+              locality
+            }
+          }
+        }
+      }
+    }
+  }
+}
