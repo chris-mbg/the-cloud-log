@@ -35,6 +35,12 @@
       "relation": "oneToMany",
       "target": "api::observation.observation",
       "mappedBy": "location"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "location"
     }
   }
 }

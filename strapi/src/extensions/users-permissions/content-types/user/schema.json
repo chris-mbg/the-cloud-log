@@ -68,6 +68,12 @@
       "relation": "oneToMany",
       "target": "api::observation.observation",
       "mappedBy": "users_permissions_user"
+    },
+    "location": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::location.location",
+      "inversedBy": "users"
     }
   }
 }

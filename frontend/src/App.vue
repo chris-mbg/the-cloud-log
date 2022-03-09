@@ -6,13 +6,7 @@ export default {
 }
 </script>
 
-<template>
+<template class="font-sans text-primary">
   <the-nav></the-nav>
   <router-view></router-view>
 </template>
-
-<style>
-#app {
-  font-family: "Inter", sans-serif;
-}
-</style>

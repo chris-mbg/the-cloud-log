@@ -11,7 +11,7 @@ export default {
 
 <template>
   <button
-    :class="`flex items-center px-4 py-2 space-x-2 text-sm font-bold tracking-wide  uppercase rounded-lg ${
+    :class="`flex items-center px-4 py-2 space-x-2 text-sm font-bold tracking-wide rounded ${
       primary
         ? ' bg-primary text-neutral hover:bg-secondary'
         : ' text-primary bg-secondary hover:bg-neutral'

@@ -2,8 +2,8 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     fontFamily: {
-      sans: ["Inter", "sans-serif"],
-      serif: ["Playfair Display", "serif"]
+      sans: ["Urbanist", "sans-serif"],
+      heading: ["Josefin Sans", "serif"]
     },
     extend: {
       colors: {
