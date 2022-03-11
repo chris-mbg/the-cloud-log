@@ -8,6 +8,7 @@ query locationsByCountyAndMunicipality(
     data {
       id
       attributes {
+        municipality
         locality
       }
     }

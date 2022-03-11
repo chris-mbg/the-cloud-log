@@ -1,12 +1,7 @@
 <script>
 import CloudButton from "../components/ui/CloudButton.vue"
 import CloudInput from "../components/ui/CloudInput.vue"
-import {
-  useQuery,
-  useResult,
-  useMutation,
-  provideApolloClient
-} from "@vue/apollo-composable"
+import { useQuery, useResult, useMutation } from "@vue/apollo-composable"
 import countiesData from "../data/counties.json"
 import { computed, ref, watch, watchEffect } from "vue"
 import locationsByCountyQuery from "../graphql/queries/locationsByCounty.query.graphql"

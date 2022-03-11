@@ -7,6 +7,7 @@ import {
   provideApolloClient
 } from "@vue/apollo-composable"
 import defaultClient from "./graphql/client"
+import { FontAwesomeIcon } from "./plugins/font-awesome"
 
 createApp({
   setup() {
@@ -18,4 +19,5 @@ createApp({
   }
 })
   .use(router)
+  .component("font-awesome", FontAwesomeIcon)
   .mount("#app")

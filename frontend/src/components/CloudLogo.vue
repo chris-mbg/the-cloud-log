@@ -5,5 +5,6 @@
     <p class="-mr-10 text-left text-7xl">The</p>
     <p class="text-9xl">Cloud</p>
     <p class="text-right text-7xl">Log</p>
+    <font-awesome icon="cloud"></font-awesome>
   </div>
 </template>
