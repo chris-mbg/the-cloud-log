@@ -3,22 +3,33 @@ import { ref } from "vue"
 import CloudButton from "../components/ui/CloudButton.vue"
 import { useMutation } from "@vue/apollo-composable"
 import loginUser from "../graphql/mutations/loginUser.mutation.graphql"
+import { useUserData } from "../../providers/userProvider"
 
 export default {
   components: { CloudButton },
   setup() {
+    const userData = useUserData()
+    console.log("User?? :: ", userData.getEmail.value)
+
     const email = ref("")
     const password = ref("")
 
     const { mutate: login } = useMutation(loginUser)
 
     const handleLoginSubmit = async () => {
-      const result = await login({
-        email: email.value,
-        password: password.value
-      })
-      window.localStorage.setItem("access-token", result.data.login.jwt)
-      console.log("Login: ", result)
+      try {
+        const result = await login({
+          email: email.value,
+          password: password.value
+        })
+        window.localStorage.setItem("access-token", result.data.login.jwt)
+        console.log("Login: ", result)
+
+        userData.updateEmail(result.data.login.user.email)
+        userData.updateUsername(result.data.login.user.username)
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     return { email, password, handleLoginSubmit }
