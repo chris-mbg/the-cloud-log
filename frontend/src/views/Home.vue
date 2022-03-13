@@ -1,16 +1,10 @@
 <script>
-import LoginForm from "../components/LoginForm.vue"
-import CloudLogo from "../components/CloudLogo.vue"
-
 export default {
-  components: { LoginForm, CloudLogo }
+  components: {},
+  setup() {}
 }
 </script>
 
-<template>
-  <cloud-logo></cloud-logo>
-
-  <hr class="m-6 border-t-1 border-primary" />
-
-  <login-form></login-form>
+<template class="font-sans text-primary">
+  <h1 class="my-6 text-2xl text-center text-orange-500">This is Home</h1>
 </template>
