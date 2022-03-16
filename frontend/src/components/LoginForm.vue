@@ -46,25 +46,33 @@ export default {
 </script>
 
 <template>
-  <form class="text-center" @submit.prevent="handleLoginSubmit">
-    <label>Email</label>
-    <input
-      v-model="email"
-      type="email"
-      required
-      placeholder="Email"
-      class="block mx-auto my-2 rounded"
-    />
-    <label>Password</label>
-    <input
-      v-model="password"
-      type="password"
-      required
-      placeholder="Password"
-      class="block mx-auto my-2 rounded"
-    />
+  <form
+    class="w-5/6 mx-auto space-y-4 text-left lg:w-1/3"
+    @submit.prevent="handleLoginSubmit"
+  >
+    <div>
+      <label>Email</label>
+      <input
+        v-model="email"
+        type="email"
+        required
+        placeholder="Email"
+        class="block w-full my-1 rounded"
+      />
+    </div>
+    <div>
+      <label>Password</label>
+      <input
+        v-model="password"
+        type="password"
+        required
+        placeholder="Password"
+        class="block w-full my-1 rounded"
+      />
+    </div>
+
     <cloud-button class="mx-auto">Login</cloud-button>
-    <p class="my-4 text-sm">
+    <p class="my-4 text-sm text-center">
       Not registered?
       <router-link to="/signup" class="underline">Sign up here</router-link>
     </p>

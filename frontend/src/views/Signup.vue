@@ -124,61 +124,72 @@ export default {
   <h1 class="my-6 text-lg text-center text-primary">
     Sign up to start register observations
   </h1>
-  <form class="my-4 text-center" @submit.prevent="handleSignupSubmit">
-    <label>Email</label>
-    <input
-      v-model="email"
-      type="email"
-      required
-      placeholder="Email"
-      class="block mx-auto my-2 rounded"
-    />
-    <label>Username</label>
-    <input
-      v-model="username"
-      type="text"
-      required
-      placeholder="Username"
-      class="block mx-auto my-2 rounded"
-    />
-    <label>Password</label>
-    <input
-      v-model="password"
-      type="password"
-      required
-      placeholder="Password"
-      class="block mx-auto my-2 rounded"
-    />
-    <p>Choose your location!</p>
-    <label>County:</label>
-    <select class="block mx-auto my-2 rounded" v-model="chosenCounty">
-      <option value=""></option>
-      <option v-for="county in countiesData" :value="county">
-        {{ county }}
-      </option>
-    </select>
-    <label>Municipality:</label>
-    <select
-      v-model="chosenMunicipality"
-      class="block mx-auto my-2 rounded"
-      v-if="chosenCounty"
-    >
-      <option value=""></option>
-      <option v-for="m in municipalitiesUnique" :value="m">
-        {{ m }}
-      </option>
-    </select>
-    <label>Locality:</label>
-    <select
-      v-model="chosenLocality"
-      class="block mx-auto my-2 rounded"
-      v-if="chosenMunicipality && chosenCounty"
-    >
-      <option value=""></option>
-      <option v-for="l in localities" :value="l.id" :key="l.id">
-        {{ l.attributes.locality }}
-      </option>
-    </select>
+  <form
+    class="w-5/6 mx-auto space-y-6 text-left lg:w-1/3"
+    @submit.prevent="handleSignupSubmit"
+  >
+    <div>
+      <label>Email</label>
+      <input
+        v-model="email"
+        type="email"
+        required
+        placeholder="Email"
+        class="block w-full my-1 rounded"
+      />
+    </div>
+    <div>
+      <label>Username</label>
+      <input
+        v-model="username"
+        type="text"
+        required
+        placeholder="Username"
+        class="block w-full my-1 rounded"
+      />
+    </div>
+    <div>
+      <label>Password</label>
+      <input
+        v-model="password"
+        type="password"
+        required
+        placeholder="Password"
+        class="block w-full my-1 rounded"
+      />
+    </div>
+    <div>
+      <p class="text-center">Choose your location!</p>
+      <label>County:</label>
+      <select class="block w-full my-1 rounded" v-model="chosenCounty">
+        <option value=""></option>
+        <option v-for="county in countiesData" :value="county">
+          {{ county }}
+        </option>
+      </select>
+      <label>Municipality:</label>
+      <select
+        v-model="chosenMunicipality"
+        class="block w-full my-1 rounded"
+        v-if="chosenCounty"
+      >
+        <option value=""></option>
+        <option v-for="m in municipalitiesUnique" :value="m">
+          {{ m }}
+        </option>
+      </select>
+      <label>Locality:</label>
+      <select
+        v-model="chosenLocality"
+        class="block w-full my-1 rounded"
+        v-if="chosenMunicipality && chosenCounty"
+      >
+        <option value=""></option>
+        <option v-for="l in localities" :value="l.id" :key="l.id">
+          {{ l.attributes.locality }}
+        </option>
+      </select>
+    </div>
 
     <cloud-button class="mx-auto my-2">Sign up</cloud-button>
   </form>

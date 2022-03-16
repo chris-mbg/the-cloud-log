@@ -6,12 +6,15 @@ import useLogout from "../composables/useLogout"
 export default {
   setup() {
     const router = useRouter()
-    const { getEmail } = useUserData()
-
-    console.log("From Nav::", getEmail.value)
+    const { getEmail, updateEmail, updateLocation, updateUsername } =
+      useUserData()
 
     const handleLogout = () => {
       useLogout()
+
+      updateEmail(null)
+      updateUsername(null)
+      updateLocation(null)
       router.push({ name: "Login" })
     }
 
@@ -26,7 +29,7 @@ export default {
   >
     <router-link to="/">
       <font-awesome icon="cloud"></font-awesome>
-      <span class="ml-4">The Cloud Log</span>
+      <span class="hidden ml-4 md:inline">The Cloud Log</span>
     </router-link>
     <div class="space-x-4">
       <router-link to="/signup" v-if="!getEmail">Sign up</router-link>
