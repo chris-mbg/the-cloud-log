@@ -12,22 +12,18 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "locality": {
+    "city": {
       "type": "string",
-      "required": true,
-      "unique": false
-    },
-    "municipality": {
-      "type": "string"
+      "required": true
     },
     "county": {
       "type": "string",
       "required": true
     },
-    "latitude": {
+    "lat": {
       "type": "float"
     },
-    "longitude": {
+    "lng": {
       "type": "float"
     },
     "observations": {

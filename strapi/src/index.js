@@ -17,19 +17,17 @@ module.exports = {
    * run jobs, or perform some special logic.
    */
   bootstrap({ strapi }) {
-    //   const cities = require("../data/sv.json");
-    //   console.log("STRAPI", strapi.service);
-    //   // console.log("STRAPI", strapi.entityService);
-    //   cities.forEach(async (city) => {
-    //     await strapi.entityService.create("api::location.location", {
-    //       data: {
-    //         locality: city.Locality,
-    //         municipality: city.Municipality,
-    //         county: city.County,
-    //         latitude: city.Latitude,
-    //         longitude: city.longitude,
-    //       },
-    //     });
+    // const cities = require("../data/se.json");
+    // console.log("STRAPI", strapi.service);
+    // cities.forEach(async (city) => {
+    //   await strapi.entityService.create("api::location.location", {
+    //     data: {
+    //       city: city.city,
+    //       county: city.admin_name,
+    //       lat: city.lat,
+    //       lng: city.lng,
+    //     },
     //   });
+    // });
   },
 };

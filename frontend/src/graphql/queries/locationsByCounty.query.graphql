@@ -3,8 +3,8 @@ query locationsByCounty($county: String!) {
     data {
       id
       attributes {
-        municipality
-        locality
+        county
+        city
       }
     }
   }

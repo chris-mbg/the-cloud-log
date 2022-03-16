@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router"
-import Test from "../views/Test.vue"
 import Home from "../views/Home.vue"
 import Login from "../views/Login.vue"
 import Signup from "../views/Signup.vue"
+import MyObservations from "../views/MyObservations.vue"
+import NewObservation from "../views/NewObservation.vue"
 
 const routes = [
   {
@@ -30,9 +31,17 @@ const routes = [
     }
   },
   {
-    path: "/test",
-    name: "Test",
-    component: Test,
+    path: "/observations",
+    name: "MyObservations",
+    component: MyObservations,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/new-obs",
+    name: "NewObservation",
+    component: NewObservation,
     meta: {
       requiresAuth: true
     }

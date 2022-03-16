@@ -1,11 +1,11 @@
 <script>
+import { useRouter } from "vue-router"
 import CloudButton from "../components/ui/CloudButton.vue"
 import CloudInput from "../components/ui/CloudInput.vue"
 import { useQuery, useResult, useMutation } from "@vue/apollo-composable"
 import countiesData from "../data/counties.json"
-import { computed, ref, watch, watchEffect } from "vue"
+import { ref, watch } from "vue"
 import locationsByCountyQuery from "../graphql/queries/locationsByCounty.query.graphql"
-import locationsByCountyAndMunicipalityQuery from "../graphql/queries/locationsByCountyAndMunicipality.query.graphql"
 import registerNewUser from "../graphql/mutations/registerNewUser.mutation.graphql"
 import addLocationToUser from "../graphql/mutations/addLocationToUser.mutation.graphql"
 
@@ -13,40 +13,23 @@ export default {
   name: "Signup",
   components: { CloudButton, CloudInput },
   setup() {
+    const router = useRouter()
     const email = ref("")
     const username = ref("")
     const password = ref("")
 
     const chosenCounty = ref(null)
-    const chosenMunicipality = ref(null)
-    const chosenLocality = ref(null)
+    const chosenLocation = ref(null)
 
-    const { result: municipalityResult } = useQuery(
+    const { result: locationsResult } = useQuery(
       locationsByCountyQuery,
       () => ({
         county: chosenCounty.value || ""
       })
     )
-    const municipalities = useResult(
-      municipalityResult,
-      [],
-      data => data.locations.data
-    )
 
-    const municipalitiesUnique = computed(
-      () => new Set(municipalities.value.map(m => m.attributes.municipality))
-    )
-
-    const { result: localityResult } = useQuery(
-      locationsByCountyAndMunicipalityQuery,
-      () => ({
-        county: chosenCounty.value || "",
-        municipality: chosenMunicipality.value || ""
-      })
-    )
-
-    const localities = useResult(
-      localityResult,
+    const locations = useResult(
+      locationsResult,
       [],
       data => data.locations.data
     )
@@ -59,16 +42,7 @@ export default {
         }
 
         if (!chosenCounty.value) {
-          chosenMunicipality.value = null
-          chosenLocality.value = null
-        }
-      }
-    )
-    watch(
-      () => chosenMunicipality.value,
-      () => {
-        if (!chosenMunicipality.value) {
-          chosenLocality.value = null
+          chosenLocation.value = null
         }
       }
     )
@@ -82,25 +56,42 @@ export default {
         email.value,
         username.value,
         password.value,
-        chosenLocality.value
+        chosenLocation.value
       )
+      try {
+        const result = await registerUser({
+          email: email.value,
+          username: username.value,
+          password: password.value
+        })
 
-      const result = await registerUser({
-        email: email.value,
-        username: username.value,
-        password: password.value
-      })
+        console.log("Reg result", result)
 
-      console.log(result)
+        window.localStorage.setItem("access-token", result.data.register.jwt)
+        window.localStorage.setItem(
+          "currentUser",
+          JSON.stringify(result.data.register.user)
+        )
 
-      window.localStorage.setItem("access-token", result.data.register.jwt)
+        const result2 = await addUserLocation(
+          {
+            userId: result.data.register.user.id,
+            locationId: chosenLocation.value
+          },
+          {
+            context: {
+              headers: {
+                Authorization: `Bearer ${result.data.register.jwt}`
+              }
+            }
+          }
+        )
 
-      const result2 = await addUserLocation({
-        userId: result.data.register.user.id,
-        locationId: chosenLocality.value
-      })
-
-      console.log("Result 2", result2)
+        console.log("Result 2", result2)
+        router.push({ name: "Home" })
+      } catch (err) {
+        console.log("Error", err)
+      }
     }
 
     return {
@@ -109,11 +100,8 @@ export default {
       password,
       countiesData,
       chosenCounty,
-      chosenMunicipality,
-      chosenLocality,
-      municipalities,
-      localities,
-      municipalitiesUnique,
+      chosenLocation,
+      locations,
       handleSignupSubmit
     }
   }
@@ -134,7 +122,6 @@ export default {
         v-model="email"
         type="email"
         required
-        placeholder="Email"
         class="block w-full my-1 rounded"
       />
     </div>
@@ -144,7 +131,6 @@ export default {
         v-model="username"
         type="text"
         required
-        placeholder="Username"
         class="block w-full my-1 rounded"
       />
     </div>
@@ -154,7 +140,6 @@ export default {
         v-model="password"
         type="password"
         required
-        placeholder="Password"
         class="block w-full my-1 rounded"
       />
     </div>
@@ -167,28 +152,15 @@ export default {
           {{ county }}
         </option>
       </select>
-      <label>Municipality:</label>
-      <select
-        v-model="chosenMunicipality"
-        class="block w-full my-1 rounded"
-        v-if="chosenCounty"
-      >
-        <option value=""></option>
-        <option v-for="m in municipalitiesUnique" :value="m">
-          {{ m }}
-        </option>
-      </select>
-      <label>Locality:</label>
-      <select
-        v-model="chosenLocality"
-        class="block w-full my-1 rounded"
-        v-if="chosenMunicipality && chosenCounty"
-      >
-        <option value=""></option>
-        <option v-for="l in localities" :value="l.id" :key="l.id">
-          {{ l.attributes.locality }}
-        </option>
-      </select>
+      <div v-if="chosenCounty">
+        <label>City:</label>
+        <select v-model="chosenLocation" class="block w-full my-1 rounded">
+          <option value=""></option>
+          <option v-for="l in locations" :value="l.id" :key="l.id">
+            {{ l.attributes.city }}
+          </option>
+        </select>
+      </div>
     </div>
 
     <cloud-button class="mx-auto my-2">Sign up</cloud-button>

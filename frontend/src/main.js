@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from "./plugins/font-awesome"
 
 createApp({
   setup() {
-    // provide(DefaultApolloClient, defaultClient)
-    provideApolloClient(defaultClient)
+    provide(DefaultApolloClient, defaultClient)
+    // provideApolloClient(defaultClient)
   },
   render() {
     return h(App)
