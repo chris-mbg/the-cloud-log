@@ -1,11 +1,18 @@
 import { computed, inject, provide, reactive } from "vue"
 
 export const initUser = () => {
-  const user = reactive({
-    email: null,
-    username: null,
-    location: null
-  })
+  const initialUserData = () => {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"))
+    if (!currentUser) {
+      return { email: null, username: null, location: null }
+    }
+    return {
+      email: currentUser.email,
+      username: currentUser.username,
+      location: currentUser.location
+    }
+  }
+  const user = reactive(initialUserData())
 
   console.log("From userprovider.js:: ", user)
   // Getters

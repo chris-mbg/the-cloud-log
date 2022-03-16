@@ -3,32 +3,39 @@ import Test from "../views/Test.vue"
 import Home from "../views/Home.vue"
 import Login from "../views/Login.vue"
 import Signup from "../views/Signup.vue"
-// import { useUserData } from "../../providers/userProvider"
-
-// ! Not usable
-// const { getEmail } = useUserData()
-// console.log("From router  ", getEmail)
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/login",
     name: "Login",
-    component: Login
+    component: Login,
+    meta: {
+      requiresAuth: false
+    }
   },
   {
     path: "/signup",
     name: "Signup",
-    component: Signup
+    component: Signup,
+    meta: {
+      requiresAuth: false
+    }
   },
   {
     path: "/test",
     name: "Test",
-    component: Test
+    component: Test,
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -37,9 +44,16 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from) => {
-  if (!getEmail && (to.name !== "Login" || to.name !== "Signup")) {
-    return { name: "Login" }
+// Route Guard
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!window.localStorage.getItem("access-token")) {
+      return next("/login")
+    } else {
+      return next()
+    }
+  } else {
+    next()
   }
 })
 

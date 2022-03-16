@@ -4,10 +4,12 @@ import CloudButton from "../components/ui/CloudButton.vue"
 import { useMutation } from "@vue/apollo-composable"
 import loginUser from "../graphql/mutations/loginUser.mutation.graphql"
 import { useUserData } from "../../providers/userProvider"
+import { useRouter } from "vue-router"
 
 export default {
   components: { CloudButton },
   setup() {
+    const router = useRouter()
     const userData = useUserData()
     console.log("User?? :: ", userData.getEmail.value)
 
@@ -23,10 +25,16 @@ export default {
           password: password.value
         })
         window.localStorage.setItem("access-token", result.data.login.jwt)
+        window.localStorage.setItem(
+          "currentUser",
+          JSON.stringify(result.data.login.user)
+        )
         console.log("Login: ", result)
 
         userData.updateEmail(result.data.login.user.email)
         userData.updateUsername(result.data.login.user.username)
+
+        router.push({ name: "Home" })
       } catch (err) {
         console.log(err)
       }
