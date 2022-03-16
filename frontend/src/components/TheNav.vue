@@ -1,13 +1,21 @@
 <script>
+import { useRouter } from "vue-router"
 import { useUserData } from "../../providers/userProvider"
+import useLogout from "../composables/useLogout"
 
 export default {
   setup() {
+    const router = useRouter()
     const { getEmail } = useUserData()
 
     console.log("From Nav::", getEmail.value)
 
-    return { getEmail }
+    const handleLogout = () => {
+      useLogout()
+      router.push({ name: "Login" })
+    }
+
+    return { getEmail, handleLogout }
   }
 }
 </script>
@@ -25,7 +33,7 @@ export default {
       <template v-if="getEmail">
         <router-link to="/observations">My obs</router-link>
         <router-link to="/new-obs">New obs</router-link>
-        <router-link to="/logout">Logout</router-link>
+        <span @click="handleLogout" class="cursor-pointer">Logout</span>
       </template>
     </div>
   </nav>
