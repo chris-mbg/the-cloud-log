@@ -5,6 +5,15 @@ mutation loginUser($email: String!, $password: String!) {
       id
       email
       username
+      location {
+        data {
+          id
+          attributes {
+            city
+            county
+          }
+        }
+      }
     }
   }
 }

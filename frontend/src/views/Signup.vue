@@ -8,6 +8,7 @@ import { ref, watch } from "vue"
 import locationsByCountyQuery from "../graphql/queries/locationsByCounty.query.graphql"
 import registerNewUser from "../graphql/mutations/registerNewUser.mutation.graphql"
 import addLocationToUser from "../graphql/mutations/addLocationToUser.mutation.graphql"
+import { useUserData } from "../../providers/userProvider"
 
 export default {
   name: "Signup",
@@ -20,6 +21,8 @@ export default {
 
     const chosenCounty = ref(null)
     const chosenLocation = ref(null)
+
+    const setUserData = useUserData()
 
     const { result: locationsResult } = useQuery(
       locationsByCountyQuery,
@@ -59,38 +62,65 @@ export default {
         chosenLocation.value
       )
       try {
-        const result = await registerUser({
+        const signupResult = await registerUser({
           email: email.value,
           username: username.value,
           password: password.value
         })
 
-        console.log("Reg result", result)
-
-        window.localStorage.setItem("access-token", result.data.register.jwt)
         window.localStorage.setItem(
-          "currentUser",
-          JSON.stringify(result.data.register.user)
+          "access-token",
+          signupResult.data.register.jwt
         )
 
-        const result2 = await addUserLocation(
+        const addLocResult = await addUserLocation(
           {
-            userId: result.data.register.user.id,
+            userId: signupResult.data.register.user.id,
             locationId: chosenLocation.value
           },
           {
             context: {
               headers: {
-                Authorization: `Bearer ${result.data.register.jwt}`
+                Authorization: `Bearer ${signupResult.data.register.jwt}`
               }
             }
           }
         )
 
-        console.log("Result 2", result2)
+        console.log("Add lcoation res ", addLocResult)
+
+        setUserData.updateEmail(
+          addLocResult.data.updateUsersPermissionsUser.data.attributes.email
+        )
+        setUserData.updateUsername(
+          addLocResult.data.updateUsersPermissionsUser.data.attributes.username
+        )
+        setUserData.updateLocation(
+          addLocResult.data.updateUsersPermissionsUser.data.attributes.location
+            .data
+        )
+
+        window.localStorage.setItem(
+          "currentUser",
+          JSON.stringify({
+            email:
+              addLocResult.data.updateUsersPermissionsUser.data.attributes
+                .email,
+            username:
+              addLocResult.data.updateUsersPermissionsUser.data.attributes
+                .username,
+            location:
+              addLocResult.data.updateUsersPermissionsUser.data.attributes
+                .location.data
+          })
+        )
+        console.log("Result 2", addLocResult)
         router.push({ name: "Home" })
       } catch (err) {
         console.log("Error", err)
+        if (err.message === "Email is already taken") {
+          // Show error message
+        }
       }
     }
 

@@ -33,6 +33,7 @@ export default {
 
         userData.updateEmail(result.data.login.user.email)
         userData.updateUsername(result.data.login.user.username)
+        userData.updateLocation(result.data.login.user.location.data)
 
         router.push({ name: "Home" })
       } catch (err) {

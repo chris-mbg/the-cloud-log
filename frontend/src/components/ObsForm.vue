@@ -1,5 +1,5 @@
 <script>
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import CloudButton from "../components/ui/CloudButton.vue"
 import { useMutation } from "@vue/apollo-composable"
 import {
@@ -7,14 +7,19 @@ import {
   getCloudCoverFromValue,
   weatherTypes
 } from "../utils/wheaterHelpers"
+import { useUserData } from "../../providers/userProvider"
 
 export default {
   components: { CloudButton },
   setup() {
+    const userData = useUserData()
+    const userLocation = computed(() => userData.getLocation)
+    console.log(userLocation.value)
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
     const cloudCover = ["SKC", "FEW", "SCT", "BKN", "OVC"]
 
     return {
+      userLocation,
       directions,
       cloudCover,
       weatherTypes,
@@ -29,11 +34,9 @@ export default {
   <form class="w-5/6 mx-auto space-y-4 text-left lg:w-1/3" @submit.prevent="">
     <div>
       <label>Location</label>
-      <input
-        readonly
-        value="user location..."
-        class="block w-full my-1 rounded"
-      />
+      <span>{{ userLocation.attributes.city }}</span>
+      <span>{{ userLocation.attributes.county }}</span>
+      <input readonly :value="userLocation" class="block w-full my-1 rounded" />
     </div>
     <div>
       <label>Time of observation</label>
@@ -43,6 +46,23 @@ export default {
         class="block w-full my-1 rounded"
         :min="new Date(Date.now() - 604800000).toISOString()"
         :max="new Date(Date.now()).toISOString()"
+      />
+    </div>
+    <div>
+      <label>Date</label>
+      <input
+        required
+        type="date"
+        class="block w-full my-1 rounded"
+        :min="new Date(Date.now() - 604800000).toISOString()"
+        :max="new Date(Date.now()).toISOString()"
+      />
+      <label>Time</label>
+      <input
+        required
+        type="time"
+        class="block w-full my-1 rounded"
+        :step="60 * 30"
       />
     </div>
     <div>
