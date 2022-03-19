@@ -7,7 +7,41 @@ module.exports = {
    *
    * This gives you an opportunity to extend code.
    */
-  register(/*{ strapi }*/) {},
+  register(/*{ strapi }*/) {
+    // To extend the UsersPermissionsMe respond type, and add possibility to add location to it.
+
+    const { toEntityResponse } = strapi
+      .plugin("graphql")
+      .service("format").returnTypes;
+    const extensionService = strapi.plugin("graphql").service("extension");
+
+    extensionService.use(({ nexus }) => ({
+      types: [
+        nexus.extendType({
+          type: "UsersPermissionsMe",
+          definition(t) {
+            t.field("location", {
+              type: "LocationEntityResponse",
+              resolve: async (root, args) => {
+                const userData = await strapi.db
+                  .query("plugin::users-permissions.user")
+                  .findOne({
+                    // select: [],
+                    where: { id: root.id },
+                    populate: { location: true },
+                  });
+                console.log("Userdata", userData);
+                return toEntityResponse(userData.location, {
+                  args,
+                  resourceUID: "api::location.location",
+                });
+              },
+            });
+          },
+        }),
+      ],
+    }));
+  },
 
   /**
    * An asynchronous bootstrap function that runs before
