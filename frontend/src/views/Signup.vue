@@ -99,10 +99,14 @@ export default {
           addLocResult.data.updateUsersPermissionsUser.data.attributes.location
             .data
         )
+        setUserData.updateId(
+          addLocResult.data.updateUsersPermissionsUser.data.id
+        )
 
         window.localStorage.setItem(
           "currentUser",
           JSON.stringify({
+            id: addLocResult.data.updateUsersPermissionsUser.data.id,
             email:
               addLocResult.data.updateUsersPermissionsUser.data.attributes
                 .email,

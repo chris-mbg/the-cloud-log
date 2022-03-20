@@ -27,10 +27,16 @@ export default {
         window.localStorage.setItem("access-token", result.data.login.jwt)
         window.localStorage.setItem(
           "currentUser",
-          JSON.stringify(result.data.login.user)
+          JSON.stringify({
+            id: result.data.login.user.id,
+            email: result.data.login.user.email,
+            username: result.data.login.user.username,
+            location: result.data.login.user.location.data
+          })
         )
         console.log("Login: ", result)
 
+        userData.updateId(result.data.login.user.id)
         userData.updateEmail(result.data.login.user.email)
         userData.updateUsername(result.data.login.user.username)
         userData.updateLocation(result.data.login.user.location.data)

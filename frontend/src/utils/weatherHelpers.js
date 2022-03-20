@@ -16,6 +16,8 @@ export const getDirectionFromValue = value => {
       return "west"
     case "NW":
       return "northwest"
+    case "VAR":
+      return "variable"
     default:
       return ""
   }

@@ -4,6 +4,7 @@ mutation addLocationToUser($userId: ID!, $locationId: ID!) {
       id
       attributes {
         email
+        username
         location {
           data {
             id

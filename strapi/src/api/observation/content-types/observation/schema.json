@@ -4,7 +4,8 @@
   "info": {
     "singularName": "observation",
     "pluralName": "observations",
-    "displayName": "Observation"
+    "displayName": "Observation",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -24,22 +25,23 @@
     "wind_direction": {
       "type": "enumeration",
       "enum": [
-        "n",
-        "nne",
-        "ne",
-        "ene",
-        "e",
-        "ese",
-        "se",
-        "sse",
-        "s",
-        "ssw",
-        "sw",
-        "wsw",
-        "w",
-        "wnw",
-        "nw",
-        "nnw"
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE",
+        "SSE",
+        "S",
+        "SSW",
+        "SW",
+        "WSW",
+        "W",
+        "WNW",
+        "NW",
+        "NNW",
+        "VAR"
       ]
     },
     "wind_speed": {
@@ -48,10 +50,11 @@
     "cloud_cover": {
       "type": "enumeration",
       "enum": [
-        "few",
-        "sct",
-        "bkn",
-        "ovc"
+        "SKC",
+        "FEW",
+        "SCT",
+        "BKN",
+        "OVC"
       ]
     },
     "cloud_types": {
