@@ -12,5 +12,6 @@ The time frame given for the project is only about two weeks, so one challenge i
 ## 👩‍💻 Technologies used
 - Vue 3 with Vue Router 
 - Vue Apollo and Apollo Client
+- TailwindCSS
 - GraphQL
 - Strapi with GraphQL-plugin
