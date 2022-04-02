@@ -1,13 +1,13 @@
 <script>
-import { ref, watch } from "vue"
-import CloudButton from "../components/ui/CloudButton.vue"
+import { watch } from "vue"
 import { useQuery, useResult } from "@vue/apollo-composable"
 import getUserObservations from "../graphql/queries/getUserObservations.query.graphql"
 import { useUserData } from "../../providers/userProvider"
+import ObservationCardGrid from "../components/ObservationCardGrid.vue"
 import ObservationCard from "../components/ObservationCard.vue"
 
 export default {
-  components: { ObservationCard },
+  components: { ObservationCard, ObservationCardGrid },
   setup() {
     const { getId } = useUserData()
 
@@ -15,7 +15,10 @@ export default {
       getUserObservations,
       () => ({
         userId: getId.value
-      })
+      }),
+      {
+        fetchPolicy: "cache-and-network"
+      }
     )
     const userObsList = useResult(
       userObsResult,
@@ -37,22 +40,7 @@ export default {
 
 <template>
   <h1 class="my-4 text-3xl text-center lg:my-6">My latest observations</h1>
-  <div>{{ userObsList }}</div>
   <template v-if="userObsList.length > 0">
-    <span>This will show</span>
-
-    <observation-card
-      v-for="obs in userObsList"
-      :key="obs.id"
-      :id="obs.id"
-      :time="obs.attributes.observation_time"
-      :temperature="obs.attributes.temperature"
-      :weather="obs.attributes.weather"
-      :wind_direction="obs.attributes.wind_direction"
-      :wind_speed="obs.attributes.wind_speed"
-      :cloud_cover="obs.attributes.cloud_cover"
-      :cloud_types="obs.attributes.cloud_types"
-      :personal="obs.attributes.personal"
-    />
+    <observation-card-grid :obsList="userObsList" />
   </template>
 </template>

@@ -9,10 +9,12 @@ import {
 } from "../utils/weatherHelpers"
 import { useUserData } from "../../providers/userProvider"
 import createObservationMutation from "../graphql/mutations/createObservation.mutation.graphql"
+import { useRouter } from "vue-router"
 
 export default {
   components: { CloudButton },
   setup() {
+    const router = useRouter()
     const userData = useUserData()
     const userLocation = computed(() => userData.getLocation.value)
     const { mutate: createObs } = useMutation(createObservationMutation)
@@ -50,6 +52,7 @@ export default {
         })
 
         console.log("Saved obs :: ", result)
+        router.push("/observations")
       } catch (err) {
         console.log(err)
         console.log(err.message)
