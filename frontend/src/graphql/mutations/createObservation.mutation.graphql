@@ -20,7 +20,7 @@ mutation createObservation(
       cloud_cover: $cloud_cover
       cloud_types: $cloud_types
       personal: $personal
-      users_permissions_user: $user
+      owner: $user
       location: $location
     }
   ) {

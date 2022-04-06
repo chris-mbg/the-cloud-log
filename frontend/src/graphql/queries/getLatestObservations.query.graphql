@@ -1,6 +1,6 @@
-query getUserObservations($userId: ID!) {
+query getLatestbservations($page: Int, $pageSize: Int) {
   observations(
-    filters: { owner: { id: { eq: $userId } } }
+    pagination: { page: $page, pageSize: $pageSize }
     sort: ["observation_time:desc"]
   ) {
     data {
@@ -13,7 +13,6 @@ query getUserObservations($userId: ID!) {
         weather
         cloud_cover
         cloud_types
-        personal
         owner {
           data {
             id
@@ -33,6 +32,8 @@ query getUserObservations($userId: ID!) {
     meta {
       pagination {
         total
+        page
+        pageCount
       }
     }
   }

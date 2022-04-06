@@ -43,4 +43,13 @@ export default {
   <template v-if="userObsList.length > 0">
     <observation-card-grid :obsList="userObsList" />
   </template>
+  <template v-else>
+    <p class="text-center">
+      No observations to show yet... Add one
+
+      <router-link to="/new-obs" class="font-bold"
+        ><font-awesome icon="long-arrow-alt-right" /> here</router-link
+      >
+    </p>
+  </template>
 </template>

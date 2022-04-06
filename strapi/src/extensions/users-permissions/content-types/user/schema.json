@@ -63,17 +63,17 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "observations": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::observation.observation",
-      "mappedBy": "users_permissions_user"
-    },
     "location": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::location.location",
       "inversedBy": "users"
+    },
+    "observations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::observation.observation",
+      "mappedBy": "owner"
     }
   }
 }

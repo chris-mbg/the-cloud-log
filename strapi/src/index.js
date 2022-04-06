@@ -41,6 +41,40 @@ module.exports = {
         }),
       ],
     }));
+
+    // To allow only the creator of a observation to delete and edit it.
+    extensionService.use({
+      resolversConfig: {
+        "Mutation.updateObservation": {
+          policies: [
+            async (context) => {
+              const entity = await strapi.db
+                .query("api::observation.observation")
+                .findOne({
+                  where: { id: context.args.id },
+                  populate: { owner: true },
+                });
+
+              return entity.user.id === context.state.user.id;
+            },
+          ],
+        },
+        "Mutation.deleteObservation": {
+          policies: [
+            async (context) => {
+              const entity = await strapi.db
+                .query("api::observation.observation")
+                .findOne({
+                  where: { id: context.args.id },
+                  populate: { owner: true },
+                });
+
+              return entity.user.id === context.state.user.id;
+            },
+          ],
+        },
+      },
+    });
   },
 
   /**

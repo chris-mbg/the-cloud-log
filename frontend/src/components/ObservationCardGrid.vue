@@ -15,7 +15,7 @@ export default {
 <template>
   <div
     v-if="obsList.length"
-    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+    class="container grid max-w-4xl grid-cols-1 mx-auto"
   >
     <observation-card
       v-for="obs in obsList"
@@ -31,6 +31,7 @@ export default {
       :personal="obs.attributes.personal"
       :city="obs.attributes.location.data.attributes.city"
       :county="obs.attributes.location.data.attributes.county"
+      :ownerId="obs.attributes.owner.data.id"
     />
   </div>
 </template>
