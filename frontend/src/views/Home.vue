@@ -1,12 +1,12 @@
 <script>
 import ObservationCardGrid from "../components/ObservationCardGrid.vue"
-import ObservationCard from "../components/ObservationCard.vue"
+import YearAgo from "../components/YearAgo.vue"
 import { useQuery, useResult } from "@vue/apollo-composable"
 import getLatestObservations from "../graphql/queries/getLatestObservations.query.graphql"
 import { watch } from "vue"
 
 export default {
-  components: { ObservationCard, ObservationCardGrid },
+  components: { ObservationCardGrid, YearAgo },
   setup() {
     const { result: latestObsResult, error } = useQuery(
       getLatestObservations,
@@ -39,6 +39,8 @@ export default {
 
 <template class="font-sans text-primary">
   <h1 class="my-6 text-2xl text-center text-orange-500">This is Home</h1>
+
+  <year-ago></year-ago>
 
   <template v-if="obsList.length > 0">
     <observation-card-grid :obsList="obsList" />
