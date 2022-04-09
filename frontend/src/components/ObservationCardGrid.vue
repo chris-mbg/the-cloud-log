@@ -15,7 +15,7 @@ export default {
 <template>
   <div
     v-if="obsList.length"
-    class="container grid max-w-4xl grid-cols-1 mx-auto"
+    class="container grid max-w-4xl grid-cols-1 gap-2 mx-auto"
   >
     <observation-card
       v-for="obs in obsList"

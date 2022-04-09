@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex p-4 m-4 shadow shadow-secondary group">
+  <div class="flex p-4 mx-4 shadow shadow-secondary group">
     <div class="grid w-4/5 grid-cols-1 gap-4 sm:grid-cols-2">
       <div class="flex content-center justify-start space-x-4">
         <font-awesome class="text-xl" icon="clock"></font-awesome>
