@@ -19,8 +19,8 @@ export default {
       primary
         ? ' bg-primary text-neutral hover:bg-secondary'
         : ' text-primary bg-secondary hover:bg-neutral'
-    } ${disabled ? 'cursor-not-allowed' : ''}`"
-    :disabled="disabled ? true : false"
+    } ${disabled ? 'cursor-not-allowed opacity-50' : ''}`"
+    :disabled="disabled"
   >
     <slot></slot>
   </button>

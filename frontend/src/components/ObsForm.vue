@@ -1,5 +1,5 @@
 <script>
-import { computed, reactive } from "vue"
+import { computed, reactive, watch } from "vue"
 import CloudButton from "../components/ui/CloudButton.vue"
 import { useMutation } from "@vue/apollo-composable"
 import {
@@ -15,16 +15,23 @@ export default {
   components: { CloudButton },
   setup() {
     const router = useRouter()
+
     const userData = useUserData()
     const userLocation = computed(() => userData.getLocation.value)
-    const { mutate: createObs } = useMutation(createObservationMutation)
+
+    const {
+      mutate: createObs,
+      error,
+      loading
+    } = useMutation(createObservationMutation)
 
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "VAR"]
     const cloudCover = ["SKC", "FEW", "SCT", "BKN", "OVC"]
 
     const observationData = reactive({
       date: "",
-      time: "",
+      hour: "",
+      minute: "",
       temp: null,
       windDir: "",
       windSpeed: "",
@@ -34,11 +41,17 @@ export default {
       personal: ""
     })
 
+    // console.log(observationData)
+
     const handleSubmit = async () => {
       try {
         const result = await createObs({
           observation_time: new Date(
-            observationData.date + "T" + observationData.time
+            observationData.date +
+              "T" +
+              observationData.hour +
+              ":" +
+              observationData.minute
           ),
           temperature: Number(observationData.temp),
           weather: observationData.weather,
@@ -51,7 +64,6 @@ export default {
           location: userLocation.value.id
         })
 
-        console.log("Saved obs :: ", result)
         router.push("/observations")
       } catch (err) {
         console.log(err)
@@ -67,7 +79,9 @@ export default {
       weatherTypes,
       getDirectionFromValue,
       getCloudCoverFromValue,
-      handleSubmit
+      handleSubmit,
+      error,
+      loading
     }
   }
 }
@@ -86,34 +100,64 @@ export default {
         <span>{{ userLocation.attributes.county }}</span>
       </p>
     </div>
-    <!-- <div>
-      <label>Time of observation</label>
-      <input
-        required
-        type="datetime-local"
-        class="block w-full my-1 rounded"
-        :min="new Date(Date.now() - 604800000).toISOString()"
-        :max="new Date(Date.now()).toISOString()"
-      />
-    </div> -->
-    <div>
-      <label>Date</label>
-      <input
-        v-model="observationData.date"
-        required
-        type="date"
-        class="block w-full my-1 rounded"
-        :min="new Date(Date.now() - 604800000).toISOString().split('T')[0]"
-        :max="new Date().toISOString().split('T')[0]"
-      />
-      <label>Time</label>
-      <input
-        v-model="observationData.time"
-        required
-        type="time"
-        class="block w-full my-1 rounded"
-        :step="60 * 30"
-      />
+    <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div class="col-span-2">
+        <label>Date</label>
+        <input
+          v-model="observationData.date"
+          required
+          type="date"
+          class="block w-full my-1 rounded"
+          :min="new Date(Date.now() - 604800000).toISOString().split('T')[0]"
+          :max="new Date().toISOString().split('T')[0]"
+        />
+      </div>
+      <div>
+        <label>Hour</label>
+        <select
+          class="block w-full my-1 rounded"
+          v-model="observationData.hour"
+          required
+        >
+          <option value="00">00</option>
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+          <option value="09">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="17">17</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+        </select>
+      </div>
+      <div>
+        <label>Minute</label>
+        <select
+          class="block w-full my-1 rounded"
+          v-model="observationData.minute"
+          required
+        >
+          <option value="00">00</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select>
+      </div>
     </div>
     <div>
       <label>Temperature <span>&deg;C</span></label>
@@ -198,6 +242,14 @@ export default {
       />
     </div>
 
-    <cloud-button class="mx-auto">Save observation</cloud-button>
+    <cloud-button class="mx-auto" :disabled="loading"
+      >Save observation</cloud-button
+    >
+    <div
+      class="p-4 text-center text-red-600 border border-red-600"
+      v-if="error"
+    >
+      <p>Error: {{ error.message }}</p>
+    </div>
   </form>
 </template>

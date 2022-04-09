@@ -11,12 +11,11 @@ export default {
   setup() {
     const router = useRouter()
     const userData = useUserData()
-    console.log("User?? :: ", userData.getEmail.value)
 
     const email = ref("")
     const password = ref("")
 
-    const { mutate: login } = useMutation(loginUser)
+    const { mutate: login, error, loading } = useMutation(loginUser)
 
     const handleLoginSubmit = async () => {
       try {
@@ -34,7 +33,6 @@ export default {
             location: result.data.login.user.location.data
           })
         )
-        console.log("Login: ", result)
 
         userData.updateId(result.data.login.user.id)
         userData.updateEmail(result.data.login.user.email)
@@ -47,7 +45,7 @@ export default {
       }
     }
 
-    return { email, password, handleLoginSubmit }
+    return { email, password, handleLoginSubmit, error, loading }
   }
 }
 </script>
@@ -78,7 +76,15 @@ export default {
       />
     </div>
 
-    <cloud-button class="mx-auto">Login</cloud-button>
+    <cloud-button class="mx-auto" :disabled="loading">Login</cloud-button>
+
+    <div
+      class="p-4 text-center text-red-600 border border-red-600"
+      v-if="error"
+    >
+      <p>Error: {{ error.message }}</p>
+    </div>
+
     <p class="my-4 text-sm text-center">
       Not registered?
       <router-link to="/signup" class="underline">Sign up here</router-link>
