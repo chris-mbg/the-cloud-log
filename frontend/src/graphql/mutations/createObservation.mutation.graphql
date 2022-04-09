@@ -1,0 +1,50 @@
+mutation createObservation(
+  $observation_time: DateTime!
+  $temperature: Float!
+  $weather: String
+  $wind_direction: ENUM_OBSERVATION_WIND_DIRECTION
+  $wind_speed: Int
+  $cloud_cover: ENUM_OBSERVATION_CLOUD_COVER
+  $cloud_types: String
+  $personal: String
+  $user: ID
+  $location: ID
+) {
+  createObservation(
+    data: {
+      observation_time: $observation_time
+      temperature: $temperature
+      weather: $weather
+      wind_direction: $wind_direction
+      wind_speed: $wind_speed
+      cloud_cover: $cloud_cover
+      cloud_types: $cloud_types
+      personal: $personal
+      owner: $user
+      location: $location
+    }
+  ) {
+    data {
+      id
+      attributes {
+        observation_time
+        temperature
+        weather
+        wind_speed
+        wind_direction
+        cloud_cover
+        cloud_types
+        personal
+        createdAt
+        location {
+          data {
+            attributes {
+              city
+              county
+            }
+          }
+        }
+      }
+    }
+  }
+}

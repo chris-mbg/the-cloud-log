@@ -1,0 +1,40 @@
+query GetUserObservationsThisDateLastYear(
+  $begin: DateTime!
+  $end: DateTime!
+  $userId: ID!
+) {
+  observations(
+    filters: {
+      owner: { id: { eq: $userId } }
+      observation_time: { and: [{ gt: $begin }, { lt: $end }] }
+    }
+    sort: ["observation_time:desc"]
+  ) {
+    data {
+      id
+      attributes {
+        observation_time
+        temperature
+        wind_speed
+        wind_direction
+        weather
+        cloud_cover
+        cloud_types
+        owner {
+          data {
+            id
+          }
+        }
+        location {
+          data {
+            id
+            attributes {
+              city
+              county
+            }
+          }
+        }
+      }
+    }
+  }
+}

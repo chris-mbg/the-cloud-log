@@ -1,0 +1,11 @@
+query locationsByCounty($county: String!) {
+  locations(filters: { county: { eq: $county } }) {
+    data {
+      id
+      attributes {
+        county
+        city
+      }
+    }
+  }
+}

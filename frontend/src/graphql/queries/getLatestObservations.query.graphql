@@ -1,0 +1,40 @@
+query getLatestbservations($page: Int, $pageSize: Int) {
+  observations(
+    pagination: { page: $page, pageSize: $pageSize }
+    sort: ["observation_time:desc"]
+  ) {
+    data {
+      id
+      attributes {
+        observation_time
+        temperature
+        wind_speed
+        wind_direction
+        weather
+        cloud_cover
+        cloud_types
+        owner {
+          data {
+            id
+          }
+        }
+        location {
+          data {
+            id
+            attributes {
+              city
+              county
+            }
+          }
+        }
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageCount
+      }
+    }
+  }
+}
