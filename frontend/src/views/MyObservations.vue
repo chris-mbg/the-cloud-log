@@ -11,7 +11,11 @@ export default {
   setup() {
     const { getId } = useUserData()
 
-    const { result: userObsResult, error } = useQuery(
+    const {
+      result: userObsResult,
+      error,
+      loading
+    } = useQuery(
       getUserObservations,
       () => ({
         userId: getId.value
@@ -33,14 +37,16 @@ export default {
       }
     )
 
-    return { userObsList }
+    return { userObsList, error, loading }
   }
 }
 </script>
 
 <template>
   <h1 class="my-4 text-3xl text-center lg:my-6">My latest observations</h1>
-  <template v-if="userObsList.length > 0">
+  <p class="text-center" v-if="loading">Loading...</p>
+  <p v-else-if="error">Error fetching your observations...</p>
+  <template v-else-if="userObsList.length > 0">
     <observation-card-grid :obsList="userObsList" />
   </template>
   <template v-else>

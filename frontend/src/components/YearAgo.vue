@@ -59,11 +59,15 @@ export default {
 </script>
 
 <template>
-  <article class="mx-auto border">
-    <h1 class="text-center">This day last year...</h1>
+  <article class="w-3/5 p-4 mx-auto border rounded border-primary">
+    <h1 class="mb-4 text-2xl text-center text-orange-500">
+      On this day, a year ago
+    </h1>
 
-    <p v-if="loading">Loading...</p>
-    <p v-else-if="error" class="text-red-600">Error fetching data...</p>
+    <p v-if="loading" class="text-center">Loading...</p>
+    <p v-else-if="error" class="text-center text-red-600">
+      Error fetching data...
+    </p>
 
     <ObservationCardGrid :obsList="obsList" v-else-if="obsList.length" />
 

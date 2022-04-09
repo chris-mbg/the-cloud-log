@@ -15,21 +15,26 @@ export default {
   components: { CloudButton, CloudInput },
   setup() {
     const router = useRouter()
+
     const email = ref("")
     const username = ref("")
     const password = ref("")
+    const confirmPassword = ref("")
 
     const chosenCounty = ref(null)
     const chosenLocation = ref(null)
 
+    const formError = ref(null)
+
     const setUserData = useUserData()
 
-    const { result: locationsResult } = useQuery(
-      locationsByCountyQuery,
-      () => ({
-        county: chosenCounty.value || ""
-      })
-    )
+    const {
+      result: locationsResult,
+      error: queryError,
+      loading: queryLoading
+    } = useQuery(locationsByCountyQuery, () => ({
+      county: chosenCounty.value || ""
+    }))
 
     const locations = useResult(
       locationsResult,
@@ -50,17 +55,27 @@ export default {
       }
     )
 
-    const { mutate: registerUser } = useMutation(registerNewUser)
-    const { mutate: addUserLocation } = useMutation(addLocationToUser)
+    const {
+      mutate: registerUser,
+      loading: registerLoading,
+      error: registerError
+    } = useMutation(registerNewUser)
+    const {
+      mutate: addUserLocation,
+      loading: addLocationLoading,
+      error: addLocationError
+    } = useMutation(addLocationToUser)
 
     const handleSignupSubmit = async () => {
-      console.log(
-        "User data",
-        email.value,
-        username.value,
-        password.value,
-        chosenLocation.value
-      )
+      formError.value = null
+
+      if (password.value !== confirmPassword.value) {
+        formError.value = "The passwords must match!"
+        return
+      } else if (password.value.length < 6) {
+        formError.value = "The password must be at least 6 characters"
+        return
+      }
       try {
         const signupResult = await registerUser({
           email: email.value,
@@ -86,8 +101,6 @@ export default {
             }
           }
         )
-
-        console.log("Add lcoation res ", addLocResult)
 
         setUserData.updateEmail(
           addLocResult.data.updateUsersPermissionsUser.data.attributes.email
@@ -118,13 +131,9 @@ export default {
                 .location.data
           })
         )
-        console.log("Result 2", addLocResult)
         router.push({ name: "Home" })
       } catch (err) {
-        console.log("Error", err)
-        if (err.message === "Email is already taken") {
-          // Show error message
-        }
+        console.log(err)
       }
     }
 
@@ -132,11 +141,19 @@ export default {
       email,
       username,
       password,
+      confirmPassword,
       countiesData,
       chosenCounty,
       chosenLocation,
       locations,
-      handleSignupSubmit
+      handleSignupSubmit,
+      queryError,
+      queryLoading,
+      registerError,
+      registerLoading,
+      addLocationError,
+      addLocationLoading,
+      formError
     }
   }
 }
@@ -178,9 +195,18 @@ export default {
       />
     </div>
     <div>
+      <label>Confirm password</label>
+      <input
+        v-model="confirmPassword"
+        type="password"
+        required
+        class="block w-full my-1 rounded"
+      />
+    </div>
+    <div>
       <p class="text-center">Choose your location!</p>
       <label>County:</label>
-      <select class="block w-full my-1 rounded" v-model="chosenCounty">
+      <select class="block w-full my-1 rounded" v-model="chosenCounty" required>
         <option value=""></option>
         <option v-for="county in countiesData" :value="county">
           {{ county }}
@@ -188,7 +214,11 @@ export default {
       </select>
       <div v-if="chosenCounty">
         <label>City:</label>
-        <select v-model="chosenLocation" class="block w-full my-1 rounded">
+        <select
+          v-model="chosenLocation"
+          class="block w-full my-1 rounded"
+          required
+        >
           <option value=""></option>
           <option v-for="l in locations" :value="l.id" :key="l.id">
             {{ l.attributes.city }}
@@ -197,6 +227,20 @@ export default {
       </div>
     </div>
 
-    <cloud-button class="mx-auto my-2">Sign up</cloud-button>
+    <cloud-button
+      class="mx-auto my-2"
+      :disabled="queryLoading || registerLoading || addLocationLoading"
+      >Sign up</cloud-button
+    >
+
+    <div
+      class="p-4 text-center text-red-600 border border-red-600"
+      v-if="queryError || registerError || addLocationError || formError"
+    >
+      <p v-if="queryError">Error: {{ queryError.message }}</p>
+      <p v-if="registerError">Error: {{ registerError.message }}</p>
+      <p v-if="addLocationError">Error: {{ addLocationError.message }}</p>
+      <p v-if="formError">Error: {{ formError }}</p>
+    </div>
   </form>
 </template>

@@ -103,8 +103,8 @@ export default {
         required
         type="date"
         class="block w-full my-1 rounded"
-        :min="new Date(Date.now() - 604800000).toISOString()"
-        :max="new Date(Date.now()).toISOString()"
+        :min="new Date(Date.now() - 604800000).toISOString().split('T')[0]"
+        :max="new Date().toISOString().split('T')[0]"
       />
       <label>Time</label>
       <input

@@ -4,6 +4,10 @@ export default {
     primary: {
       type: Boolean,
       default: true
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -15,7 +19,8 @@ export default {
       primary
         ? ' bg-primary text-neutral hover:bg-secondary'
         : ' text-primary bg-secondary hover:bg-neutral'
-    }`"
+    } ${disabled ? 'cursor-not-allowed' : ''}`"
+    :disabled="disabled ? true : false"
   >
     <slot></slot>
   </button>

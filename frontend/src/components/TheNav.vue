@@ -6,6 +6,7 @@ import useLogout from "../composables/useLogout"
 export default {
   setup() {
     const router = useRouter()
+
     const { getEmail, updateEmail, updateLocation, updateUsername } =
       useUserData()
 
@@ -32,11 +33,28 @@ export default {
       <span class="hidden ml-4 md:inline">The Cloud Log</span>
     </router-link>
     <div class="space-x-4">
-      <router-link to="/signup" v-if="!getEmail">Sign up</router-link>
+      <router-link
+        to="/signup"
+        v-if="!getEmail && $route.path !== '/signup'"
+        class="p-2 hover:border-b"
+        >Sign up</router-link
+      >
+      <router-link
+        to="/"
+        v-if="!getEmail && $route.path === '/signup'"
+        class="p-2 hover:border-b"
+        >Login</router-link
+      >
       <template v-if="getEmail">
-        <router-link to="/observations">My obs</router-link>
-        <router-link to="/new-obs">New obs</router-link>
-        <span @click="handleLogout" class="cursor-pointer">Logout</span>
+        <router-link to="/observations" class="p-2 hover:border-b"
+          >My obs</router-link
+        >
+        <router-link to="/new-obs" class="p-2 hover:border-b"
+          >New obs</router-link
+        >
+        <span @click="handleLogout" class="p-2 cursor-pointer hover:border-b"
+          >Logout</span
+        >
       </template>
     </div>
   </nav>

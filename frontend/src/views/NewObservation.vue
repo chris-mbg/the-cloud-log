@@ -8,9 +8,9 @@ export default {
 </script>
 
 <template>
-  <div class="my-4 text-center">
-    <h1 class="text-2xl">What weather is it?</h1>
-    <h1 class="text-xl">Add a new observation</h1>
+  <div class="my-6 text-center">
+    <h1 class="mb-2 text-2xl lg:text-4xl">How's the weather?</h1>
+    <h1 class="text-lg lg:text-xl">Add a new observation</h1>
   </div>
 
   <obs-form></obs-form>
