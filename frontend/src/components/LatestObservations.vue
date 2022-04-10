@@ -11,19 +11,9 @@ export default {
     const page = ref(1)
     const hasNextPage = ref(true)
 
-    //TODO How to get info on pageCount and such! At least fetch if page variable changes.
-
-    const handleNextPage = () => {
-      console.log("next page")
-      page.value = page.value + 1
-    }
-    const handlePrevPage = () => {
-      console.log("next page")
-
-      page.value = page.value === 1 ? 1 : page.value - 1
-
-      console.log("Page", page.value)
-    }
+    const handleNextPage = () => (page.value = page.value + 1)
+    const handlePrevPage = () =>
+      (page.value = page.value === 1 ? 1 : page.value - 1)
 
     const {
       result: latestObsResult,
@@ -33,18 +23,18 @@ export default {
       getLatestObservations,
       () => ({
         page: page.value,
-        pageSize: 2 // Change this to diff value when done!
+        pageSize: 10
       }),
       {
         fetchPolicy: "cache-and-network"
       }
     )
 
-    const obsList = useResult(
-      latestObsResult,
-      [],
-      data => data.observations.data
-    )
+    const obsList = useResult(latestObsResult, [], data => {
+      hasNextPage.value =
+        data.observations.meta.pagination.pageCount > page.value
+      return data.observations.data
+    })
 
     watch(
       () => obsList.value,

@@ -20,7 +20,7 @@ export default {
     county: String,
     ownerId: String
   },
-  setup(props) {
+  setup() {
     const { getId } = useUserData()
 
     return { getCloudCoverFromValue, getDirectionFromValue, getId }
@@ -32,15 +32,21 @@ export default {
   <div class="flex p-4 mx-4 shadow shadow-secondary group">
     <div class="grid w-4/5 grid-cols-1 gap-4 sm:grid-cols-2">
       <div class="flex content-center justify-start space-x-4">
-        <font-awesome class="text-xl" icon="clock"></font-awesome>
+        <span class="w-8">
+          <font-awesome class="text-xl" icon="clock"></font-awesome>
+        </span>
         <p>{{ new Date(time).toLocaleString("sv-SE") }}</p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <font-awesome icon="map-marker-alt"></font-awesome>
+        <span class="w-8">
+          <font-awesome icon="map-marker-alt" class="text-xl"></font-awesome>
+        </span>
         <p>{{ city }}, {{ county }}</p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <font-awesome icon="wind"></font-awesome>
+        <span class="w-8">
+          <font-awesome icon="wind" class="text-xl"></font-awesome>
+        </span>
         <p>
           <span class="capitalize">{{
             getDirectionFromValue(wind_direction)
@@ -49,30 +55,38 @@ export default {
         </p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <font-awesome icon="thermometer-three-quarters" />
+        <span class="w-8">
+          <font-awesome icon="thermometer-three-quarters" class="text-xl" />
+        </span>
         <p>
           <span>{{ temperature }}</span
           ><span>&deg;C</span>
         </p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <font-awesome icon="cloud-sun-rain"></font-awesome>
+        <span class="w-8">
+          <font-awesome icon="cloud-sun-rain" class="text-xl"></font-awesome>
+        </span>
         <p class="capitalize">{{ weather }}</p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <font-awesome icon="cloud-sun"></font-awesome>
+        <span class="w-8">
+          <font-awesome icon="cloud-sun" class="text-xl"></font-awesome>
+        </span>
         <p>
           <span class="capitalize">{{
             getCloudCoverFromValue(cloud_cover)
           }}</span>
-          <span>{{ " " }}({{ cloud_types }})</span>
+          <span v-if="cloud_types.length">{{ " " }}({{ cloud_types }})</span>
         </p>
       </div>
       <div
-        v-if="Number(ownerId) === Number(getId)"
+        v-if="Number(ownerId) === Number(getId) && personal"
         class="flex content-center justify-start space-x-4 sm:col-span-2"
       >
-        <font-awesome icon="comment-alt"></font-awesome>
+        <span class="w-8">
+          <font-awesome icon="comment-alt"></font-awesome>
+        </span>
         <p>
           {{ personal }}
         </p>

@@ -22,7 +22,7 @@ export default {
       type="button"
       :disabled="currentPage === 1"
       :class="`text-2xl cursor-pointer hover:text-secondary ${
-        page === 1 ? 'cursor-not-allowed opacity-50' : ''
+        currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
       }`"
     >
       <font-awesome icon="chevron-circle-left" />
