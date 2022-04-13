@@ -8,6 +8,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    danger: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -16,9 +20,11 @@ export default {
 <template>
   <button
     :class="`flex justify-center items-center px-6 py-2 space-x-2 text-sm text-center font-bold tracking-wide rounded ${
-      primary
+      danger
+        ? `bg-red-500 text-neutral hover:bg-red-800`
+        : primary
         ? ' bg-primary text-neutral hover:bg-secondary'
-        : ' text-primary bg-secondary hover:bg-neutral'
+        : ' text-neutral bg-secondary hover:bg-neutral hover:text-secondary'
     } ${disabled ? 'cursor-not-allowed opacity-50' : ''}`"
     :disabled="disabled"
   >

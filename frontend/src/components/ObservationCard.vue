@@ -4,6 +4,8 @@ import {
   getCloudCoverFromValue
 } from "../utils/weatherHelpers"
 import { useUserData } from "../../providers/userProvider"
+import useModal from "../composables/useModal"
+import DeleteModal from "./DeleteModal.vue"
 
 export default {
   props: {
@@ -20,10 +22,20 @@ export default {
     county: String,
     ownerId: String
   },
+  components: { DeleteModal },
   setup() {
     const { getId } = useUserData()
 
-    return { getCloudCoverFromValue, getDirectionFromValue, getId }
+    const { showModal, openModal, closeModal } = useModal()
+
+    return {
+      getCloudCoverFromValue,
+      getDirectionFromValue,
+      getId,
+      showModal,
+      openModal,
+      closeModal
+    }
   }
 }
 </script>
@@ -97,8 +109,13 @@ export default {
     >
       <template v-if="Number(ownerId) === Number(getId)">
         <font-awesome icon="pen" class="cursor-pointer hover:text-primary" />
-        <font-awesome icon="trash" class="cursor-pointer hover:text-red-600" />
+        <font-awesome
+          icon="trash"
+          class="cursor-pointer hover:text-red-600"
+          @click="openModal()"
+        />
       </template>
     </div>
   </div>
+  <delete-modal :show="showModal" @close="closeModal()"></delete-modal>
 </template>

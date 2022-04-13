@@ -14,3 +14,9 @@ export default {
   <the-nav></the-nav>
   <router-view></router-view>
 </template>
+
+<style>
+#app {
+  padding-bottom: 2.5rem;
+}
+</style>
