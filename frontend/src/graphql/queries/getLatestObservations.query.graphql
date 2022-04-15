@@ -1,5 +1,13 @@
-query getLatestbservations($page: Int, $pageSize: Int) {
+query getLatestObservations(
+  $page: Int
+  $pageSize: Int
+  $county: String
+  $city: String
+) {
   observations(
+    filters: {
+      location: { and: [{ county: { eq: $county } }, { city: { eq: $city } }] }
+    }
     pagination: { page: $page, pageSize: $pageSize }
     sort: ["observation_time:desc"]
   ) {

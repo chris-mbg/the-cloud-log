@@ -105,7 +105,7 @@ export default {
       </div>
     </div>
     <div
-      class="flex-col items-end content-end hidden w-1/5 space-y-6 text-2xl text-secondary group-hover:flex"
+      class="flex-col items-end content-end hidden w-1/5 space-y-6 text-lg sm:text-2xl text-secondary group-hover:flex"
     >
       <template v-if="Number(ownerId) === Number(getId)">
         <!-- <font-awesome icon="pen" class="cursor-pointer hover:text-primary" /> -->
