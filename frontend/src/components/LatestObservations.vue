@@ -5,18 +5,16 @@ import FilterBar from "./FilterBar.vue"
 import { useQuery, useResult } from "@vue/apollo-composable"
 import getLatestObservations from "../graphql/queries/getLatestObservations.query.graphql"
 import { watch, ref } from "vue"
+import usePagination from "../composables/usePagination"
 
 export default {
   components: { ObservationCardGrid, Pagination, FilterBar },
   setup() {
-    const page = ref(1)
-    const hasNextPage = ref(true)
+    const { page, hasNextPage, handleNextPage, handlePrevPage } =
+      usePagination()
+
     const county = ref(null)
     const city = ref(null)
-
-    const handleNextPage = () => (page.value = page.value + 1)
-    const handlePrevPage = () =>
-      (page.value = page.value === 1 ? 1 : page.value - 1)
 
     const handleCountyChange = value => {
       if (value === "") {

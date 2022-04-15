@@ -1,6 +1,7 @@
-query getUserObservations($userId: ID!) {
+query getUserObservations($userId: ID!, $page: Int, $pageSize: Int) {
   observations(
     filters: { owner: { id: { eq: $userId } } }
+    pagination: { page: $page, pageSize: $pageSize }
     sort: ["observation_time:desc"]
   ) {
     data {
@@ -33,6 +34,8 @@ query getUserObservations($userId: ID!) {
     meta {
       pagination {
         total
+        page
+        pageCount
       }
     }
   }

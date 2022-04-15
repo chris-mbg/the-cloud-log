@@ -1,15 +1,20 @@
 <script>
 import { watch } from "vue"
 import { useQuery, useResult } from "@vue/apollo-composable"
-import getUserObservations from "../graphql/queries/getUserObservations.query.graphql"
 import { useUserData } from "../../providers/userProvider"
+import usePagination from "../composables/usePagination"
 import ObservationCardGrid from "../components/ObservationCardGrid.vue"
 import ObservationCard from "../components/ObservationCard.vue"
+import Pagination from "../components/ui/Pagination.vue"
+import getUserObservations from "../graphql/queries/getUserObservations.query.graphql"
 
 export default {
-  components: { ObservationCard, ObservationCardGrid },
+  components: { ObservationCard, ObservationCardGrid, Pagination },
   setup() {
     const { getId } = useUserData()
+
+    const { page, hasNextPage, handleNextPage, handlePrevPage } =
+      usePagination()
 
     const {
       result: userObsResult,
@@ -24,11 +29,11 @@ export default {
         fetchPolicy: "cache-and-network"
       }
     )
-    const userObsList = useResult(
-      userObsResult,
-      [],
-      data => data.observations.data
-    )
+    const userObsList = useResult(userObsResult, [], data => {
+      hasNextPage.value =
+        data.observations.meta.pagination.pageCount > page.value
+      return data.observations.data
+    })
 
     watch(
       () => userObsList.value,
@@ -37,7 +42,15 @@ export default {
       }
     )
 
-    return { userObsList, error, loading }
+    return {
+      userObsList,
+      error,
+      loading,
+      page,
+      hasNextPage,
+      handleNextPage,
+      handlePrevPage
+    }
   }
 }
 </script>
@@ -48,6 +61,12 @@ export default {
   <p v-else-if="error">Error fetching your observations...</p>
   <template v-else-if="userObsList.length > 0">
     <observation-card-grid :obsList="userObsList" />
+    <pagination
+      :currentPage="page"
+      :hasNextPage="hasNextPage"
+      @toNextPage="handleNextPage"
+      @toPrevPage="handlePrevPage"
+    ></pagination>
   </template>
   <template v-else>
     <p class="text-center">
