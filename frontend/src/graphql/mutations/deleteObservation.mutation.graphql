@@ -1,0 +1,15 @@
+mutation deleteObservation($id: ID!) {
+  deleteObservation(id: $id) {
+    data {
+      id
+      attributes {
+        observation_time
+        owner {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}

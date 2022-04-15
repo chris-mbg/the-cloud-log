@@ -41,8 +41,6 @@ export default {
       personal: ""
     })
 
-    // console.log(observationData)
-
     const handleSubmit = async () => {
       try {
         const result = await createObs({

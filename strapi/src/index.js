@@ -55,7 +55,7 @@ module.exports = {
                   populate: { owner: true },
                 });
 
-              return entity.user.id === context.state.user.id;
+              return entity.owner.id === context.state.user.id;
             },
           ],
         },
@@ -69,7 +69,7 @@ module.exports = {
                   populate: { owner: true },
                 });
 
-              return entity.user.id === context.state.user.id;
+              return entity.owner.id === context.state.user.id;
             },
           ],
         },

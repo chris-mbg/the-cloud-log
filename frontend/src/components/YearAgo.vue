@@ -32,8 +32,8 @@ export default {
       }
     }
 
-    const beginDate = computed(() => new Date(getDateString()))
-    const endDate = computed(() => new Date(getDateString(false)))
+    const beginDate = computed(() => new Date(getDateString()).toISOString())
+    const endDate = computed(() => new Date(getDateString(false)).toISOString())
 
     console.log(beginDate.value, endDate.value)
 
@@ -71,6 +71,6 @@ export default {
 
     <ObservationCardGrid :obsList="obsList" v-else-if="obsList.length" />
 
-    <p v-else>No observations from this day</p>
+    <p v-else class="text-center">No observations from this day</p>
   </article>
 </template>

@@ -6,7 +6,7 @@ query GetUserObservationsThisDateLastYear(
   observations(
     filters: {
       owner: { id: { eq: $userId } }
-      observation_time: { and: [{ gt: $begin }, { lt: $end }] }
+      observation_time: { between: [$begin, $end] }
     }
     sort: ["observation_time:desc"]
   ) {

@@ -108,7 +108,7 @@ export default {
       class="flex-col items-end content-end hidden w-1/5 space-y-6 text-2xl text-secondary group-hover:flex"
     >
       <template v-if="Number(ownerId) === Number(getId)">
-        <font-awesome icon="pen" class="cursor-pointer hover:text-primary" />
+        <!-- <font-awesome icon="pen" class="cursor-pointer hover:text-primary" /> -->
         <font-awesome
           icon="trash"
           class="cursor-pointer hover:text-red-600"
@@ -117,5 +117,10 @@ export default {
       </template>
     </div>
   </div>
-  <delete-modal :show="showModal" @close="closeModal()"></delete-modal>
+
+  <delete-modal
+    :show="showModal"
+    @close="closeModal()"
+    :obsId="id"
+  ></delete-modal>
 </template>
