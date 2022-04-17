@@ -1,3 +1,5 @@
 node_modules
 
 .env
+
+/strapi/package-lock.json
