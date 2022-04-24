@@ -1,6 +1,6 @@
 [build]
   base = "frontend"
-  command = "CI= npmrun build"
+  command = "CI= npm run build"
   publish = "/frontend/dist"
 
 [[ redirects]]
