@@ -10,7 +10,7 @@ const getHeaders = () => {
 }
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:1337/graphql",
+  uri: import.meta.env.VITE_STRAPI_URL,
   headers: getHeaders()
 })
 
