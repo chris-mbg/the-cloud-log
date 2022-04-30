@@ -3,7 +3,7 @@ import CloudModal from "./ui/CloudModal.vue"
 import CloudButton from "./ui/CloudButton.vue"
 import { useMutation } from "@vue/apollo-composable"
 import deleteObservationMutation from "../graphql/mutations/deleteObservation.mutation.graphql"
-import { useUserData } from "../../providers/userProvider"
+import { useUserData } from "../providers/userProvider"
 
 export default {
   components: { CloudModal, CloudButton },

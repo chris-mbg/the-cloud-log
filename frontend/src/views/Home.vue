@@ -1,7 +1,7 @@
 <script>
 import YearAgo from "../components/YearAgo.vue"
 import LatestObservations from "../components/LatestObservations.vue"
-import { useUserData } from "../../providers/userProvider"
+import { useUserData } from "../providers/userProvider"
 
 export default {
   components: { YearAgo, LatestObservations },

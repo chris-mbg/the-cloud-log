@@ -3,7 +3,7 @@ import {
   getDirectionFromValue,
   getCloudCoverFromValue
 } from "../utils/weatherHelpers"
-import { useUserData } from "../../providers/userProvider"
+import { useUserData } from "../providers/userProvider"
 import useModal from "../composables/useModal"
 import DeleteModal from "./DeleteModal.vue"
 

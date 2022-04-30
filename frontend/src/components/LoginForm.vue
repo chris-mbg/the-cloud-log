@@ -3,7 +3,7 @@ import { ref } from "vue"
 import CloudButton from "../components/ui/CloudButton.vue"
 import { useMutation } from "@vue/apollo-composable"
 import loginUser from "../graphql/mutations/loginUser.mutation.graphql"
-import { useUserData } from "../../providers/userProvider"
+import { useUserData } from "../providers/userProvider"
 import { useRouter } from "vue-router"
 
 export default {

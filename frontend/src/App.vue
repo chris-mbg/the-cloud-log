@@ -1,5 +1,5 @@
 <script>
-import { initUser } from "../providers/userProvider"
+import { initUser } from "./providers/userProvider"
 import TheNav from "./components/TheNav.vue"
 
 export default {

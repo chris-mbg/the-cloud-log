@@ -1,6 +1,6 @@
 <script>
 import { useRouter } from "vue-router"
-import { useUserData } from "../../providers/userProvider"
+import { useUserData } from "../providers/userProvider"
 import useLogout from "../composables/useLogout"
 
 export default {
