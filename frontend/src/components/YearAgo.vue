@@ -4,7 +4,7 @@ import ObservationCard from "../components/ObservationCard.vue"
 import { useQuery, useResult } from "@vue/apollo-composable"
 import getUserObservationsThisDateLastYear from "../graphql/queries/getUserObservationsThisDateLastYear.query.graphql"
 import { computed, watch } from "vue"
-import { useUserData } from "../../providers/userProvider"
+import { useUserData } from "../providers/userProvider"
 
 export default {
   components: {

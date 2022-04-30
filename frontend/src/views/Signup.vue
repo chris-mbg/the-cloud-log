@@ -8,7 +8,7 @@ import { ref, watch } from "vue"
 import locationsByCountyQuery from "../graphql/queries/locationsByCounty.query.graphql"
 import registerNewUser from "../graphql/mutations/registerNewUser.mutation.graphql"
 import addLocationToUser from "../graphql/mutations/addLocationToUser.mutation.graphql"
-import { useUserData } from "../../providers/userProvider"
+import { useUserData } from "../providers/userProvider"
 
 export default {
   name: "Signup",

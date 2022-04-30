@@ -1,7 +1,7 @@
 <script>
 import { watch } from "vue"
 import { useQuery, useResult } from "@vue/apollo-composable"
-import { useUserData } from "../../providers/userProvider"
+import { useUserData } from "../providers/userProvider"
 import usePagination from "../composables/usePagination"
 import ObservationCardGrid from "../components/ObservationCardGrid.vue"
 import ObservationCard from "../components/ObservationCard.vue"
