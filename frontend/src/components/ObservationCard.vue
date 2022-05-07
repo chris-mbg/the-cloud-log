@@ -89,7 +89,9 @@ export default {
           <span class="capitalize">{{
             getCloudCoverFromValue(cloud_cover)
           }}</span>
-          <span v-if="cloud_types.length">{{ " " }}({{ cloud_types }})</span>
+          <span v-if="cloud_types && cloud_types.length"
+            >{{ " " }}({{ cloud_types }})</span
+          >
         </p>
       </div>
       <div
