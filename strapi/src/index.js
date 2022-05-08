@@ -97,6 +97,7 @@ module.exports = {
     //     },
     //   });
     // });
+
     // * seeder for users and observations
     const seedData = require("../seed/seed");
 
@@ -158,5 +159,7 @@ module.exports = {
         return obs;
       })
     );
+
+    console.log("Saved obs::", obses);
   },
 };
