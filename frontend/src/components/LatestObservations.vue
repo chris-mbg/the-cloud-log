@@ -13,53 +13,59 @@ export default {
     const { page, hasNextPage, handleNextPage, handlePrevPage } =
       usePagination()
 
-    const county = ref(null)
-    const city = ref(null)
+    const filters = ref({})
 
-    const handleCountyChange = value => {
-      if (value === "") {
-        county.value = null
-        city.value = null
-      } else {
-        county.value = value
-      }
-    }
-    const handleCityChange = value => {
-      if (value === "") {
-        city.value = null
-      } else {
-        city.value = value
+    const handleFilterChange = values => {
+      console.log("Value", values)
+      if (values) {
+        filters.value = { ...values }
       }
     }
 
-    const getQueryVariables = () => {
-      if (county.value && city.value) {
-        return {
-          page: page.value,
-          pageSize: 10,
-          county: county.value,
-          city: city.value
-        }
-      }
-      if (county.value) {
-        return {
-          page: page.value,
-          pageSize: 10,
-          county: county.value
-        }
-      }
-      return {
-        page: page.value,
-        pageSize: 10
-      }
-    }
+    // const getQueryVariables = () => {
+    //   if (county.value && city.value) {
+    //     return {
+    //       page: page.value,
+    //       pageSize: 10,
+    //       county: county.value,
+    //       city: city.value
+    //     }
+    //   }
+    //   if (county.value) {
+    //     return {
+    //       page: page.value,
+    //       pageSize: 10,
+    //       county: county.value
+    //     }
+    //   }
+    //   return {
+    //     page: page.value,
+    //     pageSize: 10
+    //   }
+    // }
     const {
       result: latestObsResult,
       error,
       loading
-    } = useQuery(getLatestObservations, () => getQueryVariables(), {
-      fetchPolicy: "cache-and-network"
-    })
+    } = useQuery(
+      getLatestObservations,
+      () => ({
+        page: page.value,
+        pageSize: 10,
+        weather: filters.value.weather || undefined,
+        county: filters.value.county || undefined,
+        city: filters.value.city || undefined,
+        dateFrom: filters.value.date
+          ? new Date(`${filters.value.date}T00:00`)
+          : new Date(null),
+        dateTo: filters.value.date
+          ? new Date(`${filters.value.date}T23:59`)
+          : new Date()
+      }),
+      {
+        fetchPolicy: "cache-and-network"
+      }
+    )
 
     const obsList = useResult(latestObsResult, [], data => {
       hasNextPage.value =
@@ -82,29 +88,27 @@ export default {
       hasNextPage,
       handleNextPage,
       handlePrevPage,
-      handleCountyChange,
-      handleCityChange
+      handleFilterChange
     }
   }
 }
 </script>
 
 <template>
-  <div class="grid-cols-6 gap-4 lg:grid">
-    <h2 class="col-span-6 mb-8 text-3xl text-center font-heading">
+  <div class="grid-cols-12 gap-4 lg:grid">
+    <h2 class="col-span-12 mb-8 text-3xl text-center font-heading">
       Latest observations
     </h2>
     <filter-bar
-      class="col-span-2 lg:mx-4"
-      @countyChange="handleCountyChange"
-      @cityChange="handleCityChange"
+      class="col-span-3 lg:mx-4"
+      @filterChange="handleFilterChange"
     ></filter-bar>
     <p v-if="loading" class="col-span-4 text-center">Loading...</p>
     <p v-else-if="error" class="col-span-4 text-center text-red-600">
       Error fetching data...
     </p>
     <template v-else-if="obsList.length > 0">
-      <div class="col-span-4">
+      <div class="col-span-6">
         <observation-card-grid :obsList="obsList" />
         <pagination
           :currentPage="page"

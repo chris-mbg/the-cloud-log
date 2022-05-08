@@ -1,12 +1,22 @@
 query getLatestObservations(
   $page: Int
-  $pageSize: Int # $county: String
-) # $city: String
-{
+  $pageSize: Int
+  $dateFrom: DateTime
+  $county: String
+  $dateTo: DateTime
+  $weather: String
+  $city: String
+) {
   observations(
-    # filters: {
-    #   location: { and: [{ county: { eq: $county } }, { city: { eq: $city } }] }
-    # }
+    filters: {
+      owner: {
+        location: {
+          and: [{ county: { eq: $county } }, { city: { eq: $city } }]
+        }
+      }
+      observation_time: { between: [$dateFrom, $dateTo] }
+      weather: { containsi: $weather }
+    }
     pagination: { page: $page, pageSize: $pageSize }
     sort: ["observation_time:desc"]
   ) {
