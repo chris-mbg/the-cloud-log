@@ -185,7 +185,7 @@ const getWeatherData = (userId, locId) => {
     cloud_types: weatherClouds.cloudType,
     personal: faker.lorem.words(Math.ceil(Math.random() * 20) + 3),
     owner: { id: userId },
-    location: { id: locId },
+    // location: { id: locId },
   };
 };
 

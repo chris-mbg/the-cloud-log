@@ -96,10 +96,10 @@ export default {
       </div>
       <div
         v-if="Number(ownerId) === Number(getId) && personal"
-        class="flex content-center justify-start space-x-4 sm:col-span-2"
+        class="flex items-center justify-start space-x-4 sm:col-span-2"
       >
-        <span class="w-8">
-          <font-awesome icon="comment-alt"></font-awesome>
+        <span class="w-8 mr-3">
+          <font-awesome icon="comment-alt" class="text-xl"></font-awesome>
         </span>
         <p>
           {{ personal }}
@@ -110,7 +110,6 @@ export default {
       class="flex-col items-end content-end hidden w-1/5 space-y-6 text-lg sm:text-2xl text-secondary group-hover:flex"
     >
       <template v-if="Number(ownerId) === Number(getId)">
-        <!-- <font-awesome icon="pen" class="cursor-pointer hover:text-primary" /> -->
         <font-awesome
           icon="trash"
           class="cursor-pointer hover:text-red-600"

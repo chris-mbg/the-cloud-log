@@ -43,7 +43,7 @@ export default {
 
     const handleSubmit = async () => {
       try {
-        const result = await createObs({
+        await createObs({
           observation_time: new Date(
             observationData.date +
               "T" +
@@ -58,14 +58,14 @@ export default {
           cloud_cover: observationData.cloudCover,
           cloud_types: observationData.cloudTypes,
           personal: observationData.personal,
-          user: userData.getId.value,
-          location: userLocation.value.id
+          user: userData.getId.value
+          // location: userLocation.value.id
         })
 
         router.push("/observations")
       } catch (err) {
         console.log(err)
-        console.log(err.message)
+        // console.log(err.message)
       }
     }
 

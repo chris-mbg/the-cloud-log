@@ -1,13 +1,12 @@
 query getLatestObservations(
   $page: Int
-  $pageSize: Int
-  $county: String
-  $city: String
-) {
+  $pageSize: Int # $county: String
+) # $city: String
+{
   observations(
-    filters: {
-      location: { and: [{ county: { eq: $county } }, { city: { eq: $city } }] }
-    }
+    # filters: {
+    #   location: { and: [{ county: { eq: $county } }, { city: { eq: $city } }] }
+    # }
     pagination: { page: $page, pageSize: $pageSize }
     sort: ["observation_time:desc"]
   ) {
@@ -24,14 +23,16 @@ query getLatestObservations(
         owner {
           data {
             id
-          }
-        }
-        location {
-          data {
-            id
             attributes {
-              city
-              county
+              location {
+                data {
+                  id
+                  attributes {
+                    city
+                    county
+                  }
+                }
+              }
             }
           }
         }

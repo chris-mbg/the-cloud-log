@@ -68,12 +68,6 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "observations"
-    },
-    "location": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::location.location",
-      "inversedBy": "observations"
     }
   }
 }

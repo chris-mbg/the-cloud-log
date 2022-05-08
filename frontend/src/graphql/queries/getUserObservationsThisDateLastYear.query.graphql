@@ -23,14 +23,16 @@ query GetUserObservationsThisDateLastYear(
         owner {
           data {
             id
-          }
-        }
-        location {
-          data {
-            id
             attributes {
-              city
-              county
+              location {
+                data {
+                  id
+                  attributes {
+                    city
+                    county
+                  }
+                }
+              }
             }
           }
         }

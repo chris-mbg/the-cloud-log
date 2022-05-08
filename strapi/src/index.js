@@ -137,8 +137,8 @@ module.exports = {
       users.map((user) => getUserWithLoc(user))
     );
 
-    const saveObs = async (userId, locId) => {
-      const obsData = seedData.getWeatherData(userId, locId);
+    const saveObs = async (userId) => {
+      const obsData = seedData.getWeatherData(userId);
 
       const savedObs = await strapi.entityService.create(
         "api::observation.observation",
@@ -154,7 +154,7 @@ module.exports = {
       usersWLoc.map(async (user) => {
         const obs = [];
         for (let i = 0; i < 2; i++) {
-          obs.push(await saveObs(user.id, user.location.id));
+          obs.push(await saveObs(user.id));
         }
         return obs;
       })

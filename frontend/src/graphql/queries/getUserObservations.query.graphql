@@ -18,14 +18,16 @@ query getUserObservations($userId: ID!, $page: Int, $pageSize: Int) {
         owner {
           data {
             id
-          }
-        }
-        location {
-          data {
-            id
             attributes {
-              city
-              county
+              location {
+                data {
+                  id
+                  attributes {
+                    city
+                    county
+                  }
+                }
+              }
             }
           }
         }
