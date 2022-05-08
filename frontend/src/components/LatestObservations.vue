@@ -90,23 +90,30 @@ export default {
 </script>
 
 <template>
-  <h2 class="text-3xl text-center">Latest observations</h2>
-  <filter-bar
-    @countyChange="handleCountyChange"
-    @cityChange="handleCityChange"
-  ></filter-bar>
-  <p v-if="loading" class="text-center">Loading...</p>
-  <p v-else-if="error" class="text-center text-red-600">
-    Error fetching data...
-  </p>
-  <template v-else-if="obsList.length > 0">
-    <observation-card-grid :obsList="obsList" />
-    <pagination
-      :currentPage="page"
-      :hasNextPage="hasNextPage"
-      @toNextPage="handleNextPage"
-      @toPrevPage="handlePrevPage"
-    ></pagination>
-  </template>
-  <p v-else class="text-center">No observations found...</p>
+  <div class="grid-cols-6 gap-4 lg:grid">
+    <h2 class="col-span-6 mb-8 text-3xl text-center font-heading">
+      Latest observations
+    </h2>
+    <filter-bar
+      class="col-span-2 lg:mx-4"
+      @countyChange="handleCountyChange"
+      @cityChange="handleCityChange"
+    ></filter-bar>
+    <p v-if="loading" class="col-span-4 text-center">Loading...</p>
+    <p v-else-if="error" class="col-span-4 text-center text-red-600">
+      Error fetching data...
+    </p>
+    <template v-else-if="obsList.length > 0">
+      <div class="col-span-4">
+        <observation-card-grid :obsList="obsList" />
+        <pagination
+          :currentPage="page"
+          :hasNextPage="hasNextPage"
+          @toNextPage="handleNextPage"
+          @toPrevPage="handlePrevPage"
+        ></pagination>
+      </div>
+    </template>
+    <p v-else class="col-span-4 text-center">No observations found...</p>
+  </div>
 </template>

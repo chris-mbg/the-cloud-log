@@ -54,7 +54,7 @@ export default {
 </script>
 
 <template>
-  <div class="p-4 m-2 rounded lg:mx-auto lg:container bg-primary text-neutral">
+  <div class="p-4 rounded lg:mx-auto lg:container bg-primary text-neutral">
     <h2 class="text-xl">Filter</h2>
 
     <div class="">
