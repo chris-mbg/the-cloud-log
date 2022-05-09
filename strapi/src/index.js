@@ -98,57 +98,57 @@ module.exports = {
     //   });
     // });
     // * seeder for users and observations
-    const seedData = require("../seed/seed");
-    const saveUser = async (user) => {
-      const data = await strapi.entityService.create(
-        "plugin::users-permissions.user",
-        {
-          data: {
-            email: user.email,
-            username: user.username,
-            provider: "local",
-            password: "test123",
-            role: { id: 1 },
-            location: user.location,
-          },
-        }
-      );
-      return data;
-    };
-    const users = await Promise.all(
-      seedData.usersData.map((user) => saveUser(user))
-    );
-    const getUserWithLoc = async (user) => {
-      const userInfo = await strapi.db
-        .query("plugin::users-permissions.user")
-        .findOne({
-          where: { id: user.id },
-          populate: { location: true },
-        });
-      return userInfo;
-    };
-    const usersWLoc = await Promise.all(
-      users.map((user) => getUserWithLoc(user))
-    );
-    const saveObs = async (userId) => {
-      const obsData = seedData.getWeatherData(userId);
-      const savedObs = await strapi.entityService.create(
-        "api::observation.observation",
-        {
-          data: obsData,
-        }
-      );
-      return savedObs;
-    };
-    const obses = Promise.all(
-      usersWLoc.map(async (user) => {
-        const obs = [];
-        for (let i = 0; i < 20; i++) {
-          obs.push(await saveObs(user.id));
-        }
-        return obs;
-      })
-    );
-    console.log("Saved obs::", obses);
+    //   const seedData = require("../seed/seed");
+    //   const saveUser = async (user) => {
+    //     const data = await strapi.entityService.create(
+    //       "plugin::users-permissions.user",
+    //       {
+    //         data: {
+    //           email: user.email,
+    //           username: user.username,
+    //           provider: "local",
+    //           password: "test123",
+    //           role: { id: 1 },
+    //           location: user.location,
+    //         },
+    //       }
+    //     );
+    //     return data;
+    //   };
+    //   const users = await Promise.all(
+    //     seedData.usersData.map((user) => saveUser(user))
+    //   );
+    //   const getUserWithLoc = async (user) => {
+    //     const userInfo = await strapi.db
+    //       .query("plugin::users-permissions.user")
+    //       .findOne({
+    //         where: { id: user.id },
+    //         populate: { location: true },
+    //       });
+    //     return userInfo;
+    //   };
+    //   const usersWLoc = await Promise.all(
+    //     users.map((user) => getUserWithLoc(user))
+    //   );
+    //   const saveObs = async (userId) => {
+    //     const obsData = seedData.getWeatherData(userId);
+    //     const savedObs = await strapi.entityService.create(
+    //       "api::observation.observation",
+    //       {
+    //         data: obsData,
+    //       }
+    //     );
+    //     return savedObs;
+    //   };
+    //   const obses = Promise.all(
+    //     usersWLoc.map(async (user) => {
+    //       const obs = [];
+    //       for (let i = 0; i < 20; i++) {
+    //         obs.push(await saveObs(user.id));
+    //       }
+    //       return obs;
+    //     })
+    //   );
+    //   console.log("Saved obs::", obses);
   },
 };
