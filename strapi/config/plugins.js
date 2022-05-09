@@ -4,7 +4,6 @@ module.exports = () => ({
     config: {
       defaultLimit: 50,
       maxLimit: 200,
-      depthLimit: 8,
     },
   },
 });
