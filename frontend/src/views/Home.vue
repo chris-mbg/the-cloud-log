@@ -26,7 +26,7 @@ export default {
     <div class="col-span-6 lg:col-span-3">
       <year-ago></year-ago>
     </div>
-    <hr class="col-span-6 m-4 lg:m-8" />
+    <hr class="col-span-6 mx-2 my-4 lg:my-8 border-primary" />
 
     <div class="col-span-6">
       <latest-observations></latest-observations>

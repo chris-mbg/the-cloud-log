@@ -3,8 +3,9 @@ import ObservationCardGrid from "../components/ObservationCardGrid.vue"
 import ObservationCard from "../components/ObservationCard.vue"
 import { useQuery, useResult } from "@vue/apollo-composable"
 import getUserObservationsThisDateLastYear from "../graphql/queries/getUserObservationsThisDateLastYear.query.graphql"
-import { computed, watch } from "vue"
+import { computed } from "vue"
 import { useUserData } from "../providers/userProvider"
+import { getDateString } from "../utils/getDateString"
 
 export default {
   components: {
@@ -14,28 +15,8 @@ export default {
   setup() {
     const { getId } = useUserData()
 
-    const getDateString = (begin = true) => {
-      const today = new Date()
-      const year = today.getFullYear()
-      const month = today.getMonth()
-      const day = today.getDate().toString().padStart(2, "0")
-      if (month < 9) {
-        let hello = begin
-          ? `${year - 1}-0${month + 1}-${day}T00:00`
-          : `${year - 1}-0${month + 1}-${day}T23:59`
-        console.log("hello", hello)
-        return hello
-      } else {
-        return begin
-          ? `${year - 1}-${month + 1}-${day}T00:00`
-          : `${year - 1}-${month + 1}-${day}T23:59`
-      }
-    }
-
     const beginDate = computed(() => new Date(getDateString()).toISOString())
     const endDate = computed(() => new Date(getDateString(false)).toISOString())
-
-    console.log(beginDate.value, endDate.value)
 
     const {
       result: thisDayObsResult,
@@ -59,7 +40,7 @@ export default {
 </script>
 
 <template>
-  <article class="p-2 mx-2 border rounded md:p-4 border-primary">
+  <article class="p-2 mx-2 rounded md:p-4s">
     <div class="flex items-center justify-center mb-2">
       <h1 class="text-xl text-center text-orange-500 md:text-2xl">Remember?</h1>
       <span class="text-lg text-center">&nbsp; - On this day, a year ago</span>

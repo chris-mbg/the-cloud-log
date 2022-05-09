@@ -59,13 +59,11 @@ export default {
           cloud_types: observationData.cloudTypes,
           personal: observationData.personal,
           user: userData.getId.value
-          // location: userLocation.value.id
         })
 
         router.push("/observations")
       } catch (err) {
         console.log(err)
-        // console.log(err.message)
       }
     }
 

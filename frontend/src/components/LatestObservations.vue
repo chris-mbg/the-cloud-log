@@ -52,13 +52,6 @@ export default {
       return data.observations.data
     })
 
-    watch(
-      () => obsList.value,
-      () => {
-        console.log("Obsar fr latest, ", obsList.value)
-      }
-    )
-
     return {
       obsList,
       error,

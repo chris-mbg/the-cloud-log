@@ -36,13 +36,6 @@ export default {
       return data.observations.data
     })
 
-    watch(
-      () => userObsList.value,
-      () => {
-        console.log("Obsar, ", userObsList.value)
-      }
-    )
-
     return {
       userObsList,
       error,
