@@ -10,10 +10,12 @@
     "strapi": "strapi"
   },
   "dependencies": {
+    "@faker-js/faker": "^6.3.1",
     "@strapi/plugin-graphql": "4.1.8",
     "@strapi/plugin-i18n": "4.1.8",
     "@strapi/plugin-users-permissions": "4.1.8",
     "@strapi/strapi": "4.1.8",
+    "faker": "^6.6.6",
     "pg": "^8.7.3",
     "pg-connection-string": "^2.5.0",
     "sqlite3": "5.0.2"
@@ -29,9 +31,5 @@
     "npm": ">=6.0.0"
   },
   "license": "MIT",
-  "devDependencies": {
-    "@faker-js/faker": "^6.3.1",
-    "bcryptjs": "^2.4.3",
-    "faker": "^6.6.6"
-  }
+  "devDependencies": {}
 }

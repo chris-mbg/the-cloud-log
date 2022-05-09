@@ -1,5 +1,4 @@
 const { faker } = require("@faker-js/faker");
-const bcrypt = require("bcryptjs");
 
 // locations ID:s 1-364
 
