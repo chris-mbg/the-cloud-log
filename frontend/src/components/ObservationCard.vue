@@ -44,19 +44,19 @@ export default {
   <div class="flex p-4 shadow shadow-secondary group">
     <div class="grid w-4/5 grid-cols-1 gap-4 sm:grid-cols-2">
       <div class="flex content-center justify-start space-x-4">
-        <span class="w-8">
+        <span class="w-8 text-center">
           <font-awesome class="text-xl" icon="clock"></font-awesome>
         </span>
         <p>{{ new Date(time).toLocaleString("sv-SE") }}</p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <span class="w-8">
+        <span class="w-8 text-center">
           <font-awesome icon="map-marker-alt" class="text-xl"></font-awesome>
         </span>
         <p>{{ city }}, {{ county }}</p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <span class="w-8">
+        <span class="w-8 text-center">
           <font-awesome icon="wind" class="text-xl"></font-awesome>
         </span>
         <p>
@@ -67,7 +67,7 @@ export default {
         </p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <span class="w-8">
+        <span class="w-8 text-center">
           <font-awesome icon="thermometer-three-quarters" class="text-xl" />
         </span>
         <p>
@@ -76,13 +76,13 @@ export default {
         </p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <span class="w-8">
+        <span class="w-8 text-center">
           <font-awesome icon="cloud-sun-rain" class="text-xl"></font-awesome>
         </span>
         <p class="capitalize">{{ weather }}</p>
       </div>
       <div class="flex content-center justify-start space-x-4">
-        <span class="w-8">
+        <span class="w-8 text-center">
           <font-awesome
             icon="cloud"
             class="content-center text-lg"
@@ -101,7 +101,7 @@ export default {
         v-if="Number(ownerId) === Number(getId) && personal"
         class="flex items-center justify-start space-x-4 sm:col-span-2"
       >
-        <span class="w-8 mr-3">
+        <span class="w-8 ml-2 text-center">
           <font-awesome icon="comment-alt" class="text-xl"></font-awesome>
         </span>
         <p>

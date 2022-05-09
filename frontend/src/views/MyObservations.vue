@@ -51,7 +51,9 @@ export default {
 </script>
 
 <template>
-  <h1 class="my-4 text-3xl text-center lg:my-6">My latest observations</h1>
+  <h1 class="my-4 text-3xl text-center lg:my-6 font-heading">
+    My observations
+  </h1>
   <p class="text-center" v-if="loading">Loading...</p>
   <p v-else-if="error">Error fetching your observations...</p>
   <template v-else-if="userObsList.length > 0">

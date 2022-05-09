@@ -72,8 +72,8 @@ export default {
       </span>
     </div>
 
-    <div v-show="openFilters">
-      <div class="">
+    <div v-show="openFilters" class="space-y-2">
+      <div>
         <p class="mb-1">By Date</p>
         <div class="p-2 rounded bg-neutral text-primary">
           <div class="w-full">

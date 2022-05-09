@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 
 const usersData = [];
 
-for (let i = 0; i < 2; i++) {
+for (let i = 0; i < 50; i++) {
   const userName = faker.name.firstName();
   const email = faker.internet.exampleEmail(userName).toLowerCase();
 
@@ -152,13 +152,13 @@ const getTemperature = (date) => {
 
   switch (month) {
     case 0 || 1 || 11:
-      return Math.floor(Math.random() * 10) * (Math.random > 0.7 ? 1 : -1);
+      return Math.floor(Math.random() * 9.5) * (Math.random > 0.7 ? 1 : -1);
     case 2 || 3 || 4:
-      return Math.floor(Math.random() * 15) + 2;
+      return Math.floor(Math.random() * 15) + (Math.random() > 0.4 ? 1.5 : 2);
     case 5 || 6 || 7:
       return Math.floor(Math.random() * 23) + 12;
     case 8 || 9 || 10:
-      return Math.floor(Math.random() * 15);
+      return Math.floor(Math.random() * 14) + (Math.random() > 0.7 ? 0.5 : 0);
     default:
       return 10;
   }
@@ -185,7 +185,6 @@ const getWeatherData = (userId, locId) => {
     cloud_types: weatherClouds.cloudType,
     personal: faker.lorem.words(Math.ceil(Math.random() * 20) + 3),
     owner: { id: userId },
-    // location: { id: locId },
   };
 };
 

@@ -9,8 +9,8 @@ export default {
 
 <template>
   <div class="my-6 text-center">
-    <h1 class="mb-2 text-2xl lg:text-4xl">How's the weather?</h1>
-    <h1 class="text-lg lg:text-xl">Add a new observation</h1>
+    <h1 class="mb-2 text-2xl lg:text-4xl font-heading">How's the weather?</h1>
+    <p class="text-lg lg:text-xl">Add a new observation</p>
   </div>
 
   <obs-form></obs-form>

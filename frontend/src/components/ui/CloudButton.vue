@@ -21,10 +21,10 @@ export default {
   <button
     :class="`flex justify-center items-center px-6 py-2 space-x-2 text-sm text-center font-bold tracking-wide rounded ${
       danger
-        ? `bg-red-500 text-neutral hover:bg-red-800`
+        ? `bg-red-500 text-neutral hover:brightness-75`
         : primary
         ? ' bg-primary text-neutral hover:bg-secondary'
-        : ' text-neutral bg-secondary hover:bg-neutral hover:text-secondary'
+        : ' text-neutral bg-secondary hover:brightness-75'
     } ${disabled ? 'cursor-not-allowed opacity-50' : ''}`"
     :disabled="disabled"
   >

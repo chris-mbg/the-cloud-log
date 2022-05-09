@@ -16,6 +16,7 @@ export default {
     const filters = ref({})
 
     const handleFilterChange = values => {
+      console.log("values", values)
       if (values) {
         filters.value = { ...values }
       }
@@ -30,9 +31,9 @@ export default {
       () => ({
         page: page.value,
         pageSize: 10,
-        weather: filters.value.weather,
-        county: filters.value.county,
-        city: filters.value.city,
+        weather: filters.value.weather || undefined,
+        county: filters.value.county || undefined,
+        city: filters.value.city || undefined,
         dateFrom: filters.value.date
           ? new Date(`${filters.value.date}T00:00`)
           : new Date(null),
