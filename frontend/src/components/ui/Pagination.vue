@@ -8,6 +8,9 @@ export default {
     hasNextPage: {
       type: Boolean,
       required: true
+    },
+    lastPage: {
+      type: Number
     }
   }
 }
@@ -15,7 +18,7 @@ export default {
 
 <template>
   <div
-    class="flex items-center justify-center w-4/5 p-4 mx-auto space-x-10 text-xl"
+    class="flex items-center justify-center w-4/5 p-4 mx-auto space-x-6 text-xl sm:space-x-10"
   >
     <button
       @click="$emit('toPrevPage')"
@@ -28,7 +31,8 @@ export default {
       <font-awesome icon="chevron-circle-left" />
     </button>
     <div>
-      Current page: <span class="font-semibold">{{ currentPage }}</span>
+      Page: <span class="font-semibold">{{ currentPage }}</span> of
+      <span class="font-semibold">{{ lastPage }}</span>
     </div>
     <button
       @click="$emit('toNextPage')"

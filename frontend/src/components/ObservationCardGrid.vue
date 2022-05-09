@@ -29,9 +29,11 @@ export default {
       :cloud_cover="obs.attributes.cloud_cover"
       :cloud_types="obs.attributes.cloud_types"
       :personal="obs.attributes.personal"
-      :city="obs.attributes.location.data.attributes.city"
-      :county="obs.attributes.location.data.attributes.county"
       :ownerId="obs.attributes.owner.data.id"
+      :city="obs.attributes.owner.data.attributes.location.data.attributes.city"
+      :county="
+        obs.attributes.owner.data.attributes.location.data.attributes.county
+      "
     />
   </div>
 </template>

@@ -43,7 +43,7 @@ export default {
 
     const handleSubmit = async () => {
       try {
-        const result = await createObs({
+        await createObs({
           observation_time: new Date(
             observationData.date +
               "T" +
@@ -58,14 +58,12 @@ export default {
           cloud_cover: observationData.cloudCover,
           cloud_types: observationData.cloudTypes,
           personal: observationData.personal,
-          user: userData.getId.value,
-          location: userLocation.value.id
+          user: userData.getId.value
         })
 
         router.push("/observations")
       } catch (err) {
         console.log(err)
-        console.log(err.message)
       }
     }
 
@@ -169,28 +167,31 @@ export default {
         max="50"
       />
     </div>
-    <div>
-      <label>Wind direction</label>
-      <select
-        class="block w-full my-1 capitalize rounded"
-        required
-        v-model="observationData.windDir"
-      >
-        <option v-for="dir in directions" :value="dir" :key="dir">
-          {{ getDirectionFromValue(dir) }}
-        </option>
-      </select>
-
-      <label>Wind speed <span>m/s</span></label>
-      <input
-        v-model="observationData.windSpeed"
-        required
-        type="number"
-        step="1"
-        min="0"
-        max="50"
-        class="block w-full my-1 rounded"
-      />
+    <div class="grid-cols-2 gap-4 sm:grid">
+      <div>
+        <label>Wind direction</label>
+        <select
+          class="block w-full my-1 capitalize rounded"
+          required
+          v-model="observationData.windDir"
+        >
+          <option v-for="dir in directions" :value="dir" :key="dir">
+            {{ getDirectionFromValue(dir) }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label>Wind speed <span>m/s</span></label>
+        <input
+          v-model="observationData.windSpeed"
+          required
+          type="number"
+          step="1"
+          min="0"
+          max="50"
+          class="block w-full my-1 rounded"
+        />
+      </div>
     </div>
     <div>
       <label>Weather</label>

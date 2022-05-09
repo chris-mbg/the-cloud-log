@@ -13,7 +13,7 @@ export default {
   setup() {
     const { getId } = useUserData()
 
-    const { page, hasNextPage, handleNextPage, handlePrevPage } =
+    const { page, hasNextPage, lastPage, handleNextPage, handlePrevPage } =
       usePagination()
 
     const {
@@ -32,15 +32,9 @@ export default {
     const userObsList = useResult(userObsResult, [], data => {
       hasNextPage.value =
         data.observations.meta.pagination.pageCount > page.value
+      lastPage.value = data.observations.meta.pagination.pageCount
       return data.observations.data
     })
-
-    watch(
-      () => userObsList.value,
-      () => {
-        console.log("Obsar, ", userObsList.value)
-      }
-    )
 
     return {
       userObsList,
@@ -48,6 +42,7 @@ export default {
       loading,
       page,
       hasNextPage,
+      lastPage,
       handleNextPage,
       handlePrevPage
     }
@@ -56,7 +51,9 @@ export default {
 </script>
 
 <template>
-  <h1 class="my-4 text-3xl text-center lg:my-6">My latest observations</h1>
+  <h1 class="my-4 text-3xl text-center lg:my-6 font-heading">
+    My observations
+  </h1>
   <p class="text-center" v-if="loading">Loading...</p>
   <p v-else-if="error">Error fetching your observations...</p>
   <template v-else-if="userObsList.length > 0">
@@ -64,6 +61,7 @@ export default {
     <pagination
       :currentPage="page"
       :hasNextPage="hasNextPage"
+      :lastPage="lastPage"
       @toNextPage="handleNextPage"
       @toPrevPage="handlePrevPage"
     ></pagination>

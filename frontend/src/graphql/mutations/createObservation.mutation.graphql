@@ -7,8 +7,7 @@ mutation createObservation(
   $cloud_cover: ENUM_OBSERVATION_CLOUD_COVER
   $cloud_types: String
   $personal: String
-  $user: ID
-  $location: ID
+  $user: ID # $location: ID
 ) {
   createObservation(
     data: {
@@ -21,30 +20,37 @@ mutation createObservation(
       cloud_types: $cloud_types
       personal: $personal
       owner: $user
-      location: $location
     }
   ) {
     data {
       id
-      attributes {
-        observation_time
-        temperature
-        weather
-        wind_speed
-        wind_direction
-        cloud_cover
-        cloud_types
-        personal
-        createdAt
-        location {
-          data {
-            attributes {
-              city
-              county
-            }
-          }
-        }
-      }
+      # attributes {
+      #   observation_time
+      #   temperature
+      #   weather
+      #   wind_speed
+      #   wind_direction
+      #   cloud_cover
+      #   cloud_types
+      #   personal
+      #   createdAt
+      #   owner {
+      #     data {
+      #       id
+      #       attributes {
+      #         location {
+      #           data {
+      #             id
+      #             attributes {
+      #               city
+      #               county
+      #             }
+      #           }
+      #         }
+      #       }
+      #     }
+      #   }
+      # }
     }
   }
 }

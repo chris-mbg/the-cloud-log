@@ -3,7 +3,7 @@ import { computed, inject, provide, reactive } from "vue"
 export const initUser = () => {
   const initialUserData = () => {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"))
-    console.log("Frloc storage", currentUser)
+
     if (!currentUser) {
       return { id: null, email: null, username: null, location: null }
     }
@@ -16,7 +16,6 @@ export const initUser = () => {
   }
   const user = reactive(initialUserData())
 
-  console.log("From userprovider.js:: ", user)
   // Getters
   const getUsername = computed(() => user.username)
   const getEmail = computed(() => user.email)
@@ -31,7 +30,6 @@ export const initUser = () => {
     user.email = email
   }
   const updateLocation = loc => {
-    console.log("UpdateLocation", loc)
     user.location = loc
   }
   const updateId = id => {

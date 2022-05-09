@@ -3,7 +3,6 @@ import CloudModal from "./ui/CloudModal.vue"
 import CloudButton from "./ui/CloudButton.vue"
 import { useMutation } from "@vue/apollo-composable"
 import deleteObservationMutation from "../graphql/mutations/deleteObservation.mutation.graphql"
-import { useUserData } from "../providers/userProvider"
 
 export default {
   components: { CloudModal, CloudButton },
@@ -19,8 +18,6 @@ export default {
     }
   },
   setup(props) {
-    const { getId } = useUserData()
-
     const {
       mutate: deleteObs,
       error,
@@ -31,17 +28,7 @@ export default {
       }
     })
 
-    const handleDelete = async () => {
-      console.log("Delete... ObsId: ", props.obsId)
-
-      const deleteResult = await deleteObs()
-
-      console.log("DeleteResult:: ", deleteResult)
-
-      // Close modal
-
-      // reload page/fetch data again..
-    }
+    const handleDelete = async () => await deleteObs()
 
     return { handleDelete, error, loading }
   }
