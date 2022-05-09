@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex p-4 mx-4 shadow shadow-secondary group">
+  <div class="flex p-4 shadow shadow-secondary group">
     <div class="grid w-4/5 grid-cols-1 gap-4 sm:grid-cols-2">
       <div class="flex content-center justify-start space-x-4">
         <span class="w-8">
@@ -83,7 +83,10 @@ export default {
       </div>
       <div class="flex content-center justify-start space-x-4">
         <span class="w-8">
-          <font-awesome icon="cloud-sun" class="text-xl"></font-awesome>
+          <font-awesome
+            icon="cloud"
+            class="content-center text-lg"
+          ></font-awesome>
         </span>
         <p>
           <span class="capitalize">{{

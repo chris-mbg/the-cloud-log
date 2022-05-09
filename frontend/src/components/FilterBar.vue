@@ -9,6 +9,8 @@ export default {
   components: { CloudButton },
   emits: ["filterChange"],
   setup(props, context) {
+    const openFilters = ref(window.innerWidth > 1024 ? true : false)
+
     const searchVariables = reactive({
       weather: "",
       date: "",
@@ -49,7 +51,8 @@ export default {
       countiesData,
       locations,
       queryError,
-      clearFilters
+      clearFilters,
+      openFilters
     }
   }
 }
@@ -57,78 +60,92 @@ export default {
 
 <template>
   <div
-    class="grid content-start grid-cols-6 gap-4 p-4 rounded lg:mx-auto bg-primary text-neutral"
+    class="content-start max-w-4xl p-4 mx-auto mb-4 rounded bg-primary text-neutral lg:mx-auto"
   >
-    <h2 class="col-span-6 text-xl">Filter observations</h2>
+    <div
+      class="flex items-center justify-between mb-2 cursor-pointer"
+      @click="openFilters = !openFilters"
+    >
+      <h2 class="text-xl">Filter observations</h2>
+      <span class="text-lg">
+        <font-awesome icon="filter" />
+      </span>
+    </div>
 
-    <div class="col-span-12">
-      <p class="mb-1">By Date</p>
-      <div class="p-2 rounded bg-neutral text-primary">
-        <div class="w-full">
-          <label>Date:</label>
-          <input
-            v-model="searchVariables.date"
-            type="date"
-            class="block w-full my-1 rounded text-primary"
-          />
+    <div v-show="openFilters">
+      <div class="">
+        <p class="mb-1">By Date</p>
+        <div class="p-2 rounded bg-neutral text-primary">
+          <div class="w-full">
+            <label>Date:</label>
+            <input
+              v-model="searchVariables.date"
+              type="date"
+              class="block w-full my-1 rounded text-primary"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-span-12">
-      <p class="mb-1">By Location</p>
-      <div class="p-2 rounded bg-neutral text-primary">
-        <div class="w-full">
-          <label>County:</label>
-          <select
-            class="block w-full my-1 rounded text-primary"
-            v-model="searchVariables.county"
-            required
-          >
-            <option value="">Select a county...</option>
-            <option v-for="county in countiesData" :value="county">
-              {{ county }}
-            </option>
-          </select>
-        </div>
-        <div class="w-full">
-          <div>
-            <p v-if="queryError">Error: {{ queryError.message }}</p>
+      <div>
+        <p class="mb-1">By Location</p>
+        <div class="p-2 rounded bg-neutral text-primary">
+          <div class="w-full">
+            <label>County:</label>
+            <select
+              class="block w-full my-1 rounded text-primary"
+              v-model="searchVariables.county"
+              required
+            >
+              <option value="">Select a county...</option>
+              <option v-for="county in countiesData" :value="county">
+                {{ county }}
+              </option>
+            </select>
+          </div>
+          <div class="w-full">
             <div>
-              <label>City:</label>
-              <select
-                v-model="searchVariables.city"
-                class="block w-full my-1 rounded text-primary"
-                required
-              >
-                <option v-if="!searchVariables.county" value="">
-                  First, select a county...
-                </option>
-                <!-- <option value=""></option> -->
-                <option v-else v-for="l in locations" :value="l.id" :key="l.id">
-                  {{ l.attributes.city }}
-                </option>
-              </select>
+              <p v-if="queryError">Error: {{ queryError.message }}</p>
+              <div>
+                <label>City:</label>
+                <select
+                  v-model="searchVariables.city"
+                  class="block w-full my-1 rounded text-primary"
+                  required
+                >
+                  <option v-if="!searchVariables.county" value="">
+                    First, select a county...
+                  </option>
+                  <option
+                    v-else
+                    v-for="l in locations"
+                    :value="l.id"
+                    :key="l.id"
+                  >
+                    {{ l.attributes.city }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-span-12">
-      <p class="mb-1">By Weather</p>
-      <div class="p-2 rounded bg-neutral text-primary">
-        <div class="w-full">
-          <label>Weather</label>
-          <input
-            v-model="searchVariables.weather"
-            type="text"
-            class="block w-full my-1 rounded text-primary"
-            placeholder="Type a weather type..."
-          />
+      <div>
+        <p class="mb-1">By Weather</p>
+        <div class="p-2 rounded bg-neutral text-primary">
+          <div class="w-full">
+            <label>Weather</label>
+            <input
+              v-model="searchVariables.weather"
+              type="text"
+              class="block w-full my-1 rounded text-primary"
+              placeholder="Type a weather type..."
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="flex justify-end col-span-12 mt-8">
-      <cloud-button @click="clearFilters">Clear all filters</cloud-button>
+      <div class="flex justify-end mt-8">
+        <cloud-button @click="clearFilters">Clear all filters</cloud-button>
+      </div>
     </div>
   </div>
 </template>

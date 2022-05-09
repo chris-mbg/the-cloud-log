@@ -15,7 +15,7 @@ export default {
 
 <template>
   <div
-    class="flex items-center justify-center w-4/5 p-4 mx-auto space-x-10 text-xl"
+    class="flex items-center justify-center w-4/5 p-4 mx-auto space-x-6 text-xl sm:space-x-10"
   >
     <button
       @click="$emit('toPrevPage')"

@@ -95,20 +95,20 @@ export default {
 </script>
 
 <template>
-  <div class="grid-cols-12 gap-4 lg:grid">
+  <div class="items-start grid-cols-12 gap-4 px-2 lg:grid">
     <h2 class="col-span-12 mb-8 text-3xl text-center font-heading">
       Latest observations
     </h2>
     <filter-bar
-      class="col-span-3 lg:mx-4"
+      class="lg:col-span-3 lg:mx-4"
       @filterChange="handleFilterChange"
     ></filter-bar>
-    <p v-if="loading" class="col-span-4 text-center">Loading...</p>
-    <p v-else-if="error" class="col-span-4 text-center text-red-600">
+    <p v-if="loading" class="col-span-6 text-center">Loading...</p>
+    <p v-else-if="error" class="col-span-6 text-center text-red-600">
       Error fetching data...
     </p>
     <template v-else-if="obsList.length > 0">
-      <div class="col-span-6">
+      <div class="lg:col-span-8 xl:col-span-7">
         <observation-card-grid :obsList="obsList" />
         <pagination
           :currentPage="page"
@@ -118,6 +118,6 @@ export default {
         ></pagination>
       </div>
     </template>
-    <p v-else class="col-span-4 text-center">No observations found...</p>
+    <p v-else class="col-span-6 text-center">No observations found...</p>
   </div>
 </template>

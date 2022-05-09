@@ -59,9 +59,11 @@ export default {
 </script>
 
 <template>
-  <article class="p-4 mx-2 border rounded sm:mx-auto sm:w-3/5 border-primary">
-    <h1 class="text-2xl text-center text-orange-500">Remember?</h1>
-    <h2 class="mb-2 text-lg text-center">On this day, a year ago</h2>
+  <article class="p-2 mx-2 border rounded md:p-4 border-primary">
+    <div class="flex items-center justify-center mb-2">
+      <h1 class="text-xl text-center text-orange-500 md:text-2xl">Remember?</h1>
+      <span class="text-lg text-center">&nbsp; - On this day, a year ago</span>
+    </div>
 
     <p v-if="loading" class="text-center">Loading...</p>
     <p v-else-if="error" class="text-center text-red-600">
