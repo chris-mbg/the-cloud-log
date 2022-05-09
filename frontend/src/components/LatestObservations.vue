@@ -10,39 +10,17 @@ import usePagination from "../composables/usePagination"
 export default {
   components: { ObservationCardGrid, Pagination, FilterBar },
   setup() {
-    const { page, hasNextPage, handleNextPage, handlePrevPage } =
+    const { page, hasNextPage, lastPage, handleNextPage, handlePrevPage } =
       usePagination()
 
     const filters = ref({})
 
     const handleFilterChange = values => {
-      console.log("Value", values)
       if (values) {
         filters.value = { ...values }
       }
     }
 
-    // const getQueryVariables = () => {
-    //   if (county.value && city.value) {
-    //     return {
-    //       page: page.value,
-    //       pageSize: 10,
-    //       county: county.value,
-    //       city: city.value
-    //     }
-    //   }
-    //   if (county.value) {
-    //     return {
-    //       page: page.value,
-    //       pageSize: 10,
-    //       county: county.value
-    //     }
-    //   }
-    //   return {
-    //     page: page.value,
-    //     pageSize: 10
-    //   }
-    // }
     const {
       result: latestObsResult,
       error,
@@ -52,9 +30,9 @@ export default {
       () => ({
         page: page.value,
         pageSize: 10,
-        weather: filters.value.weather || undefined,
-        county: filters.value.county || undefined,
-        city: filters.value.city || undefined,
+        weather: filters.value.weather,
+        county: filters.value.county,
+        city: filters.value.city,
         dateFrom: filters.value.date
           ? new Date(`${filters.value.date}T00:00`)
           : new Date(null),
@@ -70,6 +48,7 @@ export default {
     const obsList = useResult(latestObsResult, [], data => {
       hasNextPage.value =
         data.observations.meta.pagination.pageCount > page.value
+      lastPage.value = data.observations.meta.pagination.pageCount
       return data.observations.data
     })
 
@@ -86,6 +65,7 @@ export default {
       loading,
       page,
       hasNextPage,
+      lastPage,
       handleNextPage,
       handlePrevPage,
       handleFilterChange
@@ -113,6 +93,7 @@ export default {
         <pagination
           :currentPage="page"
           :hasNextPage="hasNextPage"
+          :lastPage="lastPage"
           @toNextPage="handleNextPage"
           @toPrevPage="handlePrevPage"
         ></pagination>

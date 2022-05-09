@@ -8,6 +8,9 @@ export default {
     hasNextPage: {
       type: Boolean,
       required: true
+    },
+    lastPage: {
+      type: Number
     }
   }
 }
@@ -28,7 +31,8 @@ export default {
       <font-awesome icon="chevron-circle-left" />
     </button>
     <div>
-      Current page: <span class="font-semibold">{{ currentPage }}</span>
+      Page: <span class="font-semibold">{{ currentPage }}</span> of
+      <span class="font-semibold">{{ lastPage }}</span>
     </div>
     <button
       @click="$emit('toNextPage')"

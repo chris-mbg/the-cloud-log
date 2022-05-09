@@ -13,7 +13,7 @@ export default {
   setup() {
     const { getId } = useUserData()
 
-    const { page, hasNextPage, handleNextPage, handlePrevPage } =
+    const { page, hasNextPage, lastPage, handleNextPage, handlePrevPage } =
       usePagination()
 
     const {
@@ -32,6 +32,7 @@ export default {
     const userObsList = useResult(userObsResult, [], data => {
       hasNextPage.value =
         data.observations.meta.pagination.pageCount > page.value
+      lastPage.value = data.observations.meta.pagination.pageCount
       return data.observations.data
     })
 
@@ -48,6 +49,7 @@ export default {
       loading,
       page,
       hasNextPage,
+      lastPage,
       handleNextPage,
       handlePrevPage
     }
@@ -64,6 +66,7 @@ export default {
     <pagination
       :currentPage="page"
       :hasNextPage="hasNextPage"
+      :lastPage="lastPage"
       @toNextPage="handleNextPage"
       @toPrevPage="handlePrevPage"
     ></pagination>
