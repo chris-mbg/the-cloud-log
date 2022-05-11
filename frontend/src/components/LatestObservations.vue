@@ -16,7 +16,6 @@ export default {
     const filters = ref({})
 
     const handleFilterChange = values => {
-      console.log("values", values)
       if (values) {
         filters.value = { ...values }
       }
