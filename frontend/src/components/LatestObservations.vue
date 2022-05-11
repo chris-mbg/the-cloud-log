@@ -16,7 +16,6 @@ export default {
     const filters = ref({})
 
     const handleFilterChange = values => {
-      console.log("values", values)
       if (values) {
         filters.value = { ...values }
       }
@@ -76,13 +75,14 @@ export default {
     <filter-bar
       class="lg:col-span-3 lg:mx-4"
       @filterChange="handleFilterChange"
+      @filterClear="page = 1"
     ></filter-bar>
     <p v-if="loading" class="col-span-6 text-center">Loading...</p>
     <p v-else-if="error" class="col-span-6 text-center text-red-600">
       Error fetching data...
     </p>
     <template v-else-if="obsList.length > 0">
-      <div class="lg:col-span-8 xl:col-span-7">
+      <div class="min-h-screen lg:col-span-8 xl:col-span-7">
         <observation-card-grid :obsList="obsList" />
         <pagination
           :currentPage="page"

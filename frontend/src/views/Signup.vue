@@ -45,10 +45,6 @@ export default {
     watch(
       () => chosenCounty.value,
       () => {
-        if (chosenCounty.value) {
-          console.log("County:", chosenCounty.value)
-        }
-
         if (!chosenCounty.value) {
           chosenLocation.value = null
         }
