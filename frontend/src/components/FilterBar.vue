@@ -1,13 +1,14 @@
 <script>
-import { reactive, ref, watch } from "vue"
+import { defineComponent, reactive, ref, watch } from "vue"
 import countiesData from "../data/counties.json"
 import { useQuery, useResult } from "@vue/apollo-composable"
 import locationsByCountyQuery from "../graphql/queries/locationsByCounty.query.graphql"
 import CloudButton from "./ui/CloudButton.vue"
+import { debounce } from "../utils/debounce"
 
-export default {
+export default defineComponent({
   components: { CloudButton },
-  emits: ["filterChange"],
+  emits: ["filterChange", "filterClear"],
   setup(props, context) {
     const openFilters = ref(window.innerWidth > 1024 ? true : false)
 
@@ -23,6 +24,8 @@ export default {
       searchVariables.date = ""
       searchVariables.county = ""
       searchVariables.city = ""
+
+      context.emit("filterClear")
     }
 
     const {
@@ -52,10 +55,13 @@ export default {
       locations,
       queryError,
       clearFilters,
-      openFilters
+      openFilters,
+      debounceWeather: debounce(
+        event => (searchVariables.weather = event.target.value)
+      )
     }
   }
-}
+})
 </script>
 
 <template>
@@ -82,6 +88,21 @@ export default {
               v-model="searchVariables.date"
               type="date"
               class="block w-full my-1 rounded text-primary"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="mb-1">By Weather</p>
+        <div class="p-2 rounded bg-neutral text-primary">
+          <div class="w-full">
+            <label>Weather</label>
+            <input
+              @input="debounceWeather"
+              :value="searchVariables.weather"
+              type="text"
+              class="block w-full my-1 rounded text-primary"
+              placeholder="Type a weather type..."
             />
           </div>
         </div>
@@ -129,20 +150,7 @@ export default {
           </div>
         </div>
       </div>
-      <div>
-        <p class="mb-1">By Weather</p>
-        <div class="p-2 rounded bg-neutral text-primary">
-          <div class="w-full">
-            <label>Weather</label>
-            <input
-              v-model="searchVariables.weather"
-              type="text"
-              class="block w-full my-1 rounded text-primary"
-              placeholder="Type a weather type..."
-            />
-          </div>
-        </div>
-      </div>
+
       <div class="flex justify-end mt-8">
         <cloud-button @click="clearFilters">Clear all filters</cloud-button>
       </div>

@@ -143,7 +143,7 @@ module.exports = {
     // const obses = await Promise.all(
     //   usersWLoc.map(async (user) => {
     //     const obs = [];
-    //     for (let i = 0; i < 20; i++) {
+    //     for (let i = 0; i < 12; i++) {
     //       obs.push(await saveObs(user.id));
     //     }
     //     return obs;
