@@ -16,47 +16,6 @@ for (let i = 0; i < 50; i++) {
 }
 
 const wind_directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "VAR"];
-const cloud_covers = ["OVC", "BKN", "SCT", "FEW", "SKC"];
-const weathers = [
-  "no precipitation",
-  "light rain",
-  "rain",
-  "heavy rain",
-  "light snow",
-  "snow",
-  "heavy snow",
-  "light shower of rain",
-  "shower of rain",
-  "heavy shower of rain",
-  "light shower of snow",
-  "shower of snow",
-  "heavy shower of snow",
-  "drizzle",
-  "snow grains",
-  "hail",
-  "graupel",
-  "fog",
-  "mist",
-  "sunny",
-];
-const cloudList = [
-  "Cumulus",
-  "Stratucumulus and some cirrus",
-  "CI",
-  "Thick frontal clouds (NS)",
-  "Cu, TCu, Cb",
-  "Thunderstorms",
-  "Ac",
-  "Low hanging stratus clouds",
-  "Cu",
-  "Stratocumulus clouds",
-  "Few cirrus clouds",
-  "Stratus clouds",
-  "Cu, Sc",
-  "",
-  "",
-  "St, Sc",
-];
 
 const weatherAndCloud = [
   {
@@ -150,13 +109,13 @@ const getTemperature = (date) => {
   const month = date.getMonth();
 
   switch (month) {
-    case 0 || 1 || 11:
+    case month === (0 || 1 || 11):
       return Math.floor(Math.random() * 9.5) * (Math.random > 0.7 ? 1 : -1);
-    case 2 || 3 || 4:
+    case month === (2 || 3 || 4):
       return Math.floor(Math.random() * 15) + (Math.random() > 0.4 ? 1.5 : 2);
-    case 5 || 6 || 7:
+    case month === (5 || 6 || 7):
       return Math.floor(Math.random() * 23) + 12;
-    case 8 || 9 || 10:
+    case month === (8 || 9 || 10):
       return Math.floor(Math.random() * 14) + (Math.random() > 0.7 ? 0.5 : 0);
     default:
       return 10;
