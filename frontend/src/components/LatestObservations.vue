@@ -4,10 +4,10 @@ import Pagination from "./ui/Pagination.vue"
 import FilterBar from "./FilterBar.vue"
 import { useQuery, useResult } from "@vue/apollo-composable"
 import getLatestObservations from "../graphql/queries/getLatestObservations.query.graphql"
-import { watch, ref } from "vue"
+import { defineComponent, ref } from "vue"
 import usePagination from "../composables/usePagination"
 
-export default {
+export default defineComponent({
   components: { ObservationCardGrid, Pagination, FilterBar },
   setup() {
     const { page, hasNextPage, lastPage, handleNextPage, handlePrevPage } =
@@ -64,7 +64,7 @@ export default {
       handleFilterChange
     }
   }
-}
+})
 </script>
 
 <template>

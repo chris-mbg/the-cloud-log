@@ -1,13 +1,13 @@
 <script>
+import { computed, defineComponent } from "vue"
+import { useQuery, useResult } from "@vue/apollo-composable"
 import ObservationCardGrid from "../components/ObservationCardGrid.vue"
 import ObservationCard from "../components/ObservationCard.vue"
-import { useQuery, useResult } from "@vue/apollo-composable"
 import getUserObservationsThisDateLastYear from "../graphql/queries/getUserObservationsThisDateLastYear.query.graphql"
-import { computed } from "vue"
 import { useUserData } from "../providers/userProvider"
 import { getDateString } from "../utils/getDateString"
 
-export default {
+export default defineComponent({
   components: {
     ObservationCardGrid,
     ObservationCard
@@ -36,7 +36,7 @@ export default {
 
     return { obsList, loading, error }
   }
-}
+})
 </script>
 
 <template>

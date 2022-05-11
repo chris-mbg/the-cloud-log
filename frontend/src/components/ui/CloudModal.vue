@@ -1,5 +1,7 @@
 <script>
-export default {
+import { defineComponent } from "vue"
+
+export default defineComponent({
   props: {
     show: {
       type: Boolean,
@@ -7,7 +9,7 @@ export default {
     }
   },
   emits: ["close"]
-}
+})
 </script>
 
 <template>
@@ -22,7 +24,7 @@ export default {
       >
         <font-awesome
           icon="times-circle"
-          class="absolute top-0 right-0 mx-2 my-2 text-2xl cursor-pointer text-primary hover:text-secondary"
+          class="absolute top-0 right-0 m-2 text-2xl cursor-pointer text-primary hover:text-secondary"
           @click.prevent="$emit('close')"
         />
         <div class="w-full max-h-screen overflow-auto">

@@ -1,10 +1,10 @@
 <script>
+import { defineComponent } from "vue"
 import ObsForm from "../components/ObsForm.vue"
 
-export default {
-  components: { ObsForm },
-  setup() {}
-}
+export default defineComponent({
+  components: { ObsForm }
+})
 </script>
 
 <template>

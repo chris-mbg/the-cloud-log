@@ -3,8 +3,9 @@ import CloudModal from "./ui/CloudModal.vue"
 import CloudButton from "./ui/CloudButton.vue"
 import { useMutation } from "@vue/apollo-composable"
 import deleteObservationMutation from "../graphql/mutations/deleteObservation.mutation.graphql"
+import { defineComponent } from "vue"
 
-export default {
+export default defineComponent({
   components: { CloudModal, CloudButton },
   emits: ["close"],
   props: {
@@ -32,7 +33,7 @@ export default {
 
     return { handleDelete, error, loading }
   }
-}
+})
 </script>
 
 <template>

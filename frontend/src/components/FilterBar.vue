@@ -28,13 +28,12 @@ export default defineComponent({
       context.emit("filterClear")
     }
 
-    const {
-      result: locationsResult,
-      error: queryError,
-      loading: queryLoading
-    } = useQuery(locationsByCountyQuery, () => ({
-      county: searchVariables.county || ""
-    }))
+    const { result: locationsResult, error: queryError } = useQuery(
+      locationsByCountyQuery,
+      () => ({
+        county: searchVariables.county || ""
+      })
+    )
 
     const locations = useResult(
       locationsResult,
@@ -43,10 +42,10 @@ export default defineComponent({
     )
 
     watch(searchVariables, newVal => {
-      context.emit("filterChange", newVal)
       if (newVal.county === "") {
         searchVariables.city = ""
       }
+      context.emit("filterChange", newVal)
     })
 
     return {
@@ -84,11 +83,7 @@ export default defineComponent({
         <div class="p-2 rounded bg-neutral text-primary">
           <div class="w-full">
             <label>Date:</label>
-            <input
-              v-model="searchVariables.date"
-              type="date"
-              class="block w-full my-1 rounded text-primary"
-            />
+            <input v-model="searchVariables.date" type="date" />
           </div>
         </div>
       </div>
@@ -101,7 +96,6 @@ export default defineComponent({
               @input="debounceWeather"
               :value="searchVariables.weather"
               type="text"
-              class="block w-full my-1 rounded text-primary"
               placeholder="Type a weather type..."
             />
           </div>
@@ -112,11 +106,7 @@ export default defineComponent({
         <div class="p-2 rounded bg-neutral text-primary">
           <div class="w-full">
             <label>County:</label>
-            <select
-              class="block w-full my-1 rounded text-primary"
-              v-model="searchVariables.county"
-              required
-            >
+            <select v-model="searchVariables.county" required>
               <option value="">Select a county...</option>
               <option v-for="county in countiesData" :value="county">
                 {{ county }}
@@ -128,11 +118,7 @@ export default defineComponent({
               <p v-if="queryError">Error: {{ queryError.message }}</p>
               <div>
                 <label>City:</label>
-                <select
-                  v-model="searchVariables.city"
-                  class="block w-full my-1 rounded text-primary"
-                  required
-                >
+                <select v-model="searchVariables.city" required>
                   <option v-if="!searchVariables.county" value="">
                     First, select a county...
                   </option>

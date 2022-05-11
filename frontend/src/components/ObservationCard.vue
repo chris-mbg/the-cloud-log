@@ -1,4 +1,5 @@
 <script>
+import { defineComponent } from "vue"
 import {
   getDirectionFromValue,
   getCloudCoverFromValue
@@ -7,7 +8,7 @@ import { useUserData } from "../providers/userProvider"
 import useModal from "../composables/useModal"
 import DeleteModal from "./DeleteModal.vue"
 
-export default {
+export default defineComponent({
   props: {
     id: String,
     time: String,
@@ -37,7 +38,7 @@ export default {
       closeModal
     }
   }
-}
+})
 </script>
 
 <template>

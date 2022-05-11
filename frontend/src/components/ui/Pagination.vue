@@ -1,5 +1,7 @@
 <script>
-export default {
+import { defineComponent } from "vue"
+
+export default defineComponent({
   props: {
     currentPage: {
       type: Number,
@@ -29,7 +31,7 @@ export default {
 
     return { handleNextPage, handlePrevPage }
   }
-}
+})
 </script>
 
 <template>

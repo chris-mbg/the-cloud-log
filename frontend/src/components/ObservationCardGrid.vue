@@ -1,7 +1,8 @@
 <script>
+import { defineComponent } from "vue"
 import ObservationCard from "./ObservationCard.vue"
 
-export default {
+export default defineComponent({
   props: {
     obsList: {
       required: true,
@@ -9,7 +10,7 @@ export default {
     }
   },
   components: { ObservationCard }
-}
+})
 </script>
 
 <template>

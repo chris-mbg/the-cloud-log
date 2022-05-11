@@ -1,5 +1,5 @@
 <script>
-import { watch } from "vue"
+import { defineComponent } from "vue"
 import { useQuery, useResult } from "@vue/apollo-composable"
 import { useUserData } from "../providers/userProvider"
 import usePagination from "../composables/usePagination"
@@ -8,7 +8,7 @@ import ObservationCard from "../components/ObservationCard.vue"
 import Pagination from "../components/ui/Pagination.vue"
 import getUserObservations from "../graphql/queries/getUserObservations.query.graphql"
 
-export default {
+export default defineComponent({
   components: { ObservationCard, ObservationCardGrid, Pagination },
   setup() {
     const { getId } = useUserData()
@@ -47,7 +47,7 @@ export default {
       handlePrevPage
     }
   }
-}
+})
 </script>
 
 <template>

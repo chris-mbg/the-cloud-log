@@ -1,9 +1,10 @@
 <script>
+import { defineComponent } from "vue"
 import { useRouter } from "vue-router"
 import { useUserData } from "../providers/userProvider"
 import useLogout from "../composables/useLogout"
 
-export default {
+export default defineComponent({
   setup() {
     const router = useRouter()
 
@@ -21,7 +22,7 @@ export default {
 
     return { getEmail, handleLogout }
   }
-}
+})
 </script>
 
 <template>

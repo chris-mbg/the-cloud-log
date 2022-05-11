@@ -1,12 +1,12 @@
 <script>
-import { ref } from "vue"
+import { defineComponent, ref } from "vue"
 import CloudButton from "../components/ui/CloudButton.vue"
 import { useMutation } from "@vue/apollo-composable"
 import loginUser from "../graphql/mutations/loginUser.mutation.graphql"
 import { useUserData } from "../providers/userProvider"
 import { useRouter } from "vue-router"
 
-export default {
+export default defineComponent({
   components: { CloudButton },
   setup() {
     const router = useRouter()
@@ -47,7 +47,7 @@ export default {
 
     return { email, password, handleLoginSubmit, error, loading }
   }
-}
+})
 </script>
 
 <template>
@@ -57,13 +57,7 @@ export default {
   >
     <div>
       <label>Email</label>
-      <input
-        v-model="email"
-        type="email"
-        required
-        placeholder="Email"
-        class="block w-full my-1 rounded"
-      />
+      <input v-model="email" type="email" required placeholder="Email" />
     </div>
     <div>
       <label>Password</label>
@@ -72,7 +66,6 @@ export default {
         type="password"
         required
         placeholder="Password"
-        class="block w-full my-1 rounded"
       />
     </div>
 

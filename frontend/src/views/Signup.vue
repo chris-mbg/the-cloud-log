@@ -1,32 +1,32 @@
 <script>
+import { defineComponent, reactive, ref, watch } from "vue"
 import { useRouter } from "vue-router"
-import CloudButton from "../components/ui/CloudButton.vue"
-import CloudInput from "../components/ui/CloudInput.vue"
 import { useQuery, useResult, useMutation } from "@vue/apollo-composable"
+import CloudButton from "../components/ui/CloudButton.vue"
 import countiesData from "../data/counties.json"
-import { ref, watch } from "vue"
 import locationsByCountyQuery from "../graphql/queries/locationsByCounty.query.graphql"
 import registerNewUser from "../graphql/mutations/registerNewUser.mutation.graphql"
 import addLocationToUser from "../graphql/mutations/addLocationToUser.mutation.graphql"
 import { useUserData } from "../providers/userProvider"
 
-export default {
+export default defineComponent({
   name: "Signup",
-  components: { CloudButton, CloudInput },
+  components: { CloudButton },
   setup() {
     const router = useRouter()
+    const setUserData = useUserData()
 
-    const email = ref("")
-    const username = ref("")
-    const password = ref("")
-    const confirmPassword = ref("")
+    const inputs = reactive({
+      email: "",
+      username: "",
+      password: "",
+      confirmPassword: ""
+    })
 
     const chosenCounty = ref(null)
     const chosenLocation = ref(null)
 
     const formError = ref(null)
-
-    const setUserData = useUserData()
 
     const {
       result: locationsResult,
@@ -65,18 +65,18 @@ export default {
     const handleSignupSubmit = async () => {
       formError.value = null
 
-      if (password.value !== confirmPassword.value) {
+      if (inputs.password.value !== inputs.confirmPassword.value) {
         formError.value = "The passwords must match!"
         return
-      } else if (password.value.length < 6) {
+      } else if (inputs.password.value.length < 6) {
         formError.value = "The password must be at least 6 characters"
         return
       }
       try {
         const signupResult = await registerUser({
-          email: email.value,
-          username: username.value,
-          password: password.value
+          email: inputs.email.value,
+          username: inputs.username.value,
+          password: inputs.password.value
         })
 
         window.localStorage.setItem(
@@ -134,10 +134,7 @@ export default {
     }
 
     return {
-      email,
-      username,
-      password,
-      confirmPassword,
+      inputs,
       countiesData,
       chosenCounty,
       chosenLocation,
@@ -152,7 +149,7 @@ export default {
       formError
     }
   }
-}
+})
 </script>
 
 <template>
@@ -165,44 +162,24 @@ export default {
   >
     <div>
       <label>Email</label>
-      <input
-        v-model="email"
-        type="email"
-        required
-        class="block w-full my-1 rounded"
-      />
+      <input v-model="inputs.email" type="email" required />
     </div>
     <div>
       <label>Username</label>
-      <input
-        v-model="username"
-        type="text"
-        required
-        class="block w-full my-1 rounded"
-      />
+      <input v-model="inputs.username" type="text" required />
     </div>
     <div>
       <label>Password</label>
-      <input
-        v-model="password"
-        type="password"
-        required
-        class="block w-full my-1 rounded"
-      />
+      <input v-model="inputs.password" type="password" required />
     </div>
     <div>
       <label>Confirm password</label>
-      <input
-        v-model="confirmPassword"
-        type="password"
-        required
-        class="block w-full my-1 rounded"
-      />
+      <input v-model="inputs.confirmPassword" type="password" required />
     </div>
     <div>
       <p class="text-center">Choose your location!</p>
       <label>County:</label>
-      <select class="block w-full my-1 rounded" v-model="chosenCounty" required>
+      <select v-model="chosenCounty" required>
         <option value=""></option>
         <option v-for="county in countiesData" :value="county">
           {{ county }}
@@ -210,11 +187,7 @@ export default {
       </select>
       <div v-if="chosenCounty">
         <label>City:</label>
-        <select
-          v-model="chosenLocation"
-          class="block w-full my-1 rounded"
-          required
-        >
+        <select v-model="chosenLocation" required>
           <option value=""></option>
           <option v-for="l in locations" :value="l.id" :key="l.id">
             {{ l.attributes.city }}

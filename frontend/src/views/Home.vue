@@ -1,16 +1,17 @@
 <script>
+import { defineComponent } from "vue"
 import YearAgo from "../components/YearAgo.vue"
 import LatestObservations from "../components/LatestObservations.vue"
 import { useUserData } from "../providers/userProvider"
 
-export default {
+export default defineComponent({
   components: { YearAgo, LatestObservations },
   setup() {
     const { getUsername } = useUserData()
 
     return { getUsername }
   }
-}
+})
 </script>
 
 <template class="font-sans text-primary">

@@ -3,3 +3,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input,
+select,
+textarea {
+  @apply block w-full my-1;
+}
+
+[type="text"],
+[type="email"],
+[type="password"],
+[type="number"],
+[type="date"],
+textarea,
+select {
+  @apply rounded;
+}
