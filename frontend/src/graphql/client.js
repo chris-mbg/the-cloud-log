@@ -1,21 +1,28 @@
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client"
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  ApolloLink,
+  concat
+} from "@apollo/client"
 
-const getHeaders = () => {
-  const headers = {}
-  const token = window.localStorage.getItem("access-token")
-  if (token) {
-    headers["Authorization"] = `Bearer ${token}`
-  }
-  return headers
-}
+const httpLink = new HttpLink({ uri: import.meta.env.VITE_STRAPI_URL })
 
-const httpLink = new HttpLink({
-  uri: import.meta.env.VITE_STRAPI_URL,
-  headers: getHeaders()
+const authMiddleware = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem("access-token")
+
+  operation.setContext({
+    headers: {
+      ...operation.headers,
+      authorization: token ? `Bearer ${token}` : ""
+    }
+  })
+
+  return forward(operation)
 })
 
 const defaultClient = new ApolloClient({
-  link: httpLink,
+  link: concat(authMiddleware, httpLink),
   cache: new InMemoryCache()
 })
 
