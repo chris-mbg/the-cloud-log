@@ -14,3 +14,7 @@ The time frame given for the project is only about two weeks, so one challenge i
 - TailwindCSS
 - GraphQL
 - Strapi with GraphQL-plugin
+
+## ✨ View it live
+[Try it out!](https://the-cloud-log.netlify.app/)
+The Strapi application is deployed on Heroku and the frontend part on Netlify. 
