@@ -1,13 +1,14 @@
 <script>
+import { defineComponent } from "vue"
 import { initUser } from "./providers/userProvider"
 import TheNav from "./components/TheNav.vue"
 
-export default {
+export default defineComponent({
   components: { TheNav },
   setup() {
     initUser()
   }
-}
+})
 </script>
 
 <template class="font-sans text-primary">

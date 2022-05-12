@@ -65,18 +65,18 @@ export default defineComponent({
     const handleSignupSubmit = async () => {
       formError.value = null
 
-      if (inputs.password.value !== inputs.confirmPassword.value) {
+      if (inputs.password !== inputs.confirmPassword) {
         formError.value = "The passwords must match!"
         return
-      } else if (inputs.password.value.length < 6) {
+      } else if (inputs.password.length < 6) {
         formError.value = "The password must be at least 6 characters"
         return
       }
       try {
         const signupResult = await registerUser({
-          email: inputs.email.value,
-          username: inputs.username.value,
-          password: inputs.password.value
+          email: inputs.email,
+          username: inputs.username,
+          password: inputs.password
         })
 
         window.localStorage.setItem(
